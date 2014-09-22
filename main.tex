@@ -1,0 +1,401 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\documentclass{beamer}
+% Replace the \documentclass declaration above
+% with the following two lines to typeset your 
+% lecture notes as a handout:
+%\documentclass{article}
+%\usepackage{beamerarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+\title{PHP~5}
+
+% A subtitle is optional and this may be deleted
+\subtitle{en environnement professionnel}
+
+\author{Mikaël~Cordon}
+
+\date{Université de Poitiers, LP TLWTM, 2014-2015}
+
+\subject{Université Poitiers, LP TLWTM, 2014-2015 -- PHP 5}
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Vous êtes ici !}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/hide/hide,subsubsectionstyle=hide]
+  \end{frame}
+}
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Vous êtes ici !}
+    \tableofcontents[sectionstyle=show/hide,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/hide/hide/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Sommaire}
+  \tableofcontents[subsectionstyle=hide,subsubsectionstyle=hide]
+\end{frame}
+
+\section{Présentation rapide}
+
+\begin{frame}{Historique}
+à compléter
+    \begin{itemize}
+    \item PHP~4 : version très utilisée (autrefois), \textbf{n’est pas} orientée objet
+    \item PHP~5 : version de PHP \textbf{orientée objet}
+    \item version actuelle (octobre 2014) : 5.6.0
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Globalement (?)}
+    \begin{block}{}
+        \textit{PHP is a popular general-purpose scripting language that is especially suited to web development.\\
+        Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.}
+    \end{block}
+    \begin{itemize}
+        \item Logiciel libre : licence GPL
+        \item langage à script : interprétation à l’exécution
+        \item langage de haut niveau : accès fichiers, sessions, caches, protocole HTTP, les codages caractères (UTF-8)\ldots
+        \item beaucoup de bibliothèques disponibles : PEAR, PECL (extensions)
+    \end{itemize}
+    Documentation de référence : \url{http://www.php.net/manual}
+
+\end{frame}
+
+\begin{frame}{Technologies associées}
+Rarement utilisé seul, PHP s’associe, via des bibliothèques et/ou nativement, à :
+\begin{itemize}
+\item httpd : apache, nginx, lighttpd, IIS, \ldots
+\item bases de données : MySQL/MariaDB, PostgreSQL, Oracle, DB2, \ldots
+\item présentation : html (html-4.0, XHTML, XML, HTML5), css, javascript, templates, \ldots
+\item communications : fichiers, flux, http/s, ftp/s, \ldots
+\item \ldots
+\end{itemize}
+
+\end{frame}
+
+\section{Architecture de PHP}
+
+\begin{frame}{Fonctionnement client/server}
+
+\end{frame}
+
+\begin{frame}{Installation}
+
+\end{frame}
+
+\begin{frame}{Configuration}
+
+\end{frame}
+
+\begin{frame}{Éléments de configuration importants}
+
+\end{frame}
+
+\section{Les éléments du langage}
+
+%\subsection{Éléments du langage}
+
+%\begin{frame}{Les éléments}
+%\begin{itemize}
+%\item application ou programme : abstrait, regroupant le reste.
+%\item espaces de nom : organise le code et évite les collisions
+%\item fichiers : scripts, inclusions, définitions, configurations
+%\item classes : déjà définies ou à définir
+%\item fonctions ou clôtures : déjà définies ou à définir
+%\item structures du langage (\texttt{if}, \texttt{while}, \texttt{switch}, \texttt{\{\}}) : déjà définies
+%\item instructions : le code
+%\item commentaires et documentation : pour le développeur
+%\item variables : \emph{références} à des valeurs
+%\item types de valeur (classes) : typage \emph{faible}
+%\item valeurs : les données
+%\item constantes : valeurs définies une seule fois
+%\end{itemize}
+%\end{frame}
+
+\subsection{Application}
+
+\begin{frame}{Application PHP}
+
+\end{frame}
+
+\subsection{Espaces de nom}
+
+\begin{frame}{Espaces de nom}
+
+\end{frame}
+
+\subsection{Fichiers}
+
+\begin{frame}{Scripts}
+
+\end{frame}
+
+\begin{frame}{Inclusions}
+
+\end{frame}
+
+\begin{frame}{Fichiers de définition de classe}
+
+\end{frame}
+
+\begin{frame}{Fichiers \texttt{.ini}}
+
+\end{frame}
+
+\subsection{Classes}
+
+\begin{frame}{Classes \guillemotleft~normales~\guillemotright}
+
+\end{frame}
+
+\begin{frame}{Méthodes}
+
+\end{frame}
+
+\begin{frame}{Données de classe}
+
+\end{frame}
+
+\begin{frame}{Instanciation, libération}
+
+\end{frame}
+
+\begin{frame}{Visibilité}
+
+\end{frame}
+
+\begin{frame}{Redéfinition et surcharge}
+
+\end{frame}
+
+\begin{frame}{Héritage}
+
+\end{frame}
+
+\begin{frame}{Classes abstraites}
+
+\end{frame}
+
+\begin{frame}{Interface}
+
+\end{frame}
+
+\subsection{Fonctions, clôtures}
+
+\begin{frame}{Fonctions} %function name()
+
+\end{frame}
+
+\begin{frame}{Paramètres}
+
+\end{frame}
+
+\begin{frame}{Fonctions anonymes} %function ()
+
+\end{frame}
+
+\begin{frame}{Clôtures de code} %traits
+
+\end{frame}
+
+\subsection{Contrôle de l’exécution}
+
+\begin{frame}{Exécution conditionnelle} %if
+
+\end{frame}
+
+\begin{frame}{Exécution en boucle} %while
+
+\end{frame}
+
+\begin{frame}{Exécution sélective} %switch
+
+\end{frame}
+
+\begin{frame}{Regroupement en bloc anonyme} %{}
+
+\end{frame}
+
+\begin{frame}{Exceptions} % try
+
+\end{frame}
+
+\subsection{Instructions}
+
+\begin{frame}{Instruction}
+
+\end{frame}
+
+\begin{frame}{Affectation}
+
+\end{frame}
+
+\begin{frame}{Appels}
+
+\end{frame}
+
+\subsection{Commentaires et documentation}
+
+\begin{frame}{Commentaires}
+
+\end{frame}
+
+\begin{frame}{Documentation}
+
+\end{frame}
+
+\subsection{Variables}
+
+\begin{frame}{Variable}
+
+\end{frame}
+
+\begin{frame}{Référence}
+
+\end{frame}
+
+\subsection{Types de valeurs, valeurs et constantes}
+
+\begin{frame}{Types de valeurs}
+Les scalaires :
+\begin{itemize}
+\item Entiers relatifs : \texttt{int}
+\item Flottants : \texttt{float}
+\item Chaîne de caractère : \texttt{string}
+\item Booléen : \texttt{bool}
+\end{itemize}
+Les non scalaires :
+\begin{itemize}
+\item Tableaux : \texttt{array}
+\item Objet : \texttt{object}
+\end{itemize}
+Le pseudo-type \texttt{null}.
+\end{frame}
+
+\begin{frame}{Entier}
+
+\end{frame}
+
+\begin{frame}{Flottant}
+
+\end{frame}
+
+\begin{frame}{Chaîne de caractères}
+
+\end{frame}
+
+\begin{frame}{Booléen}
+
+\end{frame}
+
+\begin{frame}{Tableau}
+
+\end{frame}
+
+\begin{frame}{Objet}
+
+\end{frame}
+
+\begin{frame}{Sans type}
+
+\end{frame}
+
+\section{Règles d’écriture}
+
+\begin{frame}{Pourquoi ?}
+
+\end{frame}
+
+\begin{frame}{Éléments concernés}
+
+\end{frame}
+
+\subsection{Quelques exemples/suggestions de règles}
+
+\begin{frame}{Concernant les espacements}
+
+\end{frame}
+
+\begin{frame}{Concernant l’indentation et les accolades}
+
+\end{frame}
+
+\begin{frame}{Concernant la nomenclature des éléments}
+
+\end{frame}
+
+\begin{frame}{Commentaires et documentation}
+
+\end{frame}
+
+\begin{frame}{Types de données, bibliothèques, versions}
+
+\end{frame}
+
+\section{Technologies annexes}
+
+\subsection{Sessions}
+
+\subsection{Authentification}
+
+\subsection{Caches}
+
+\subsection{Codage caractères}
+
+\end{document}
