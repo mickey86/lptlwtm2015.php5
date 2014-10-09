@@ -67,7 +67,6 @@
 *.gls
 
 # hyperref
-*.brf
 
 # listings
 *.lol
@@ -107,3 +106,6 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+/build/
+*.tex.bak
+*.bak

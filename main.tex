@@ -13,6 +13,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 \usepackage{textcomp}
+\usepackage{listings,xcolor}
+%\usepackage{inconsolata}
 
 %\usetheme{Montpellier}
 \usetheme{Antibes}
@@ -46,6 +48,23 @@
 
 \begin{document}
 
+\definecolor{dkgreen}{rgb}{0,.6,0}
+\definecolor{dkblue}{rgb}{0,0,.6}
+\definecolor{dkyellow}{cmyk}{0,0,.8,.3}
+
+\lstset{
+  language        = php,
+  basicstyle      = \small\ttfamily,
+  keywordstyle    = \color{dkblue},
+  stringstyle     = \color{red},
+  identifierstyle = \color{dkgreen},
+  commentstyle    = \color{gray},
+  emph            =[1]{php},
+  emphstyle       =[1]\color{black},
+  emph            =[2]{if,and,or,else},
+  emphstyle       =[2]\color{dkyellow}}
+
+
 \begin{frame}
   \titlepage
 \end{frame}
@@ -54,361 +73,25 @@
   \tableofcontents[subsectionstyle=hide,subsubsectionstyle=hide]
 \end{frame}
 
-\section{Cours \textnumero{}1 : présentation de PHP}
-\subsection{Présentation}
-\begin{frame}{Historique}
-    \begin{itemize}
-	    \item 1994 : Rasmus Lerdorf, \og~Personal Home Page / Forms Interpreter~\fg
-    	\item \og~PHP : Hypertext Preprocessor~\fg 
-    	\item PHP~4 (2000) : version très utilisée (autrefois), \textbf{n’est pas} orientée objet
-    	\item PHP~5 (2004) : version de PHP \textbf{orientée objet}
-    	\item version actuelle (2014-08) : 5.6
-    \end{itemize}
-\end{frame}
 
-\begin{frame}{Qu'est-ce que PHP ?}
-    \begin{block}{\url{http://php.net/}}PHP is a popular general-purpose scripting language that is especially suited to web development.\\Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
-    \end{block}
-    \begin{itemize}
-        \item Logiciel libre : PHP license v3.01 (BSD-style) ; Documentation : CC-By PHP Documentation Group v3
-        \item langage à script : interprétation à l’exécution
-        \item langage de haut niveau : accès fichiers, sessions, caches, protocole HTTP, les codages caractères (UTF-8)\ldots
-        \item beaucoup de bibliothèques disponibles : PEAR, PECL (extensions)
-    \end{itemize}
-    Documentation de référence : \url{http://www.php.net/manual}
-\end{frame}
+\input{cours_1.tex}
+\input{exercice_1.tex}
 
-\begin{frame}{Technologies associées}
-	Rarement utilisé seul, PHP s’associe, via des bibliothèques et/ou nativement, à :
-	\begin{itemize}
-		\item httpd : apache, nginx, lighttpd, IIS, \ldots
-		\item bases de données : MySQL/MariaDB, PostgreSQL, Oracle, DB2, \ldots
-		\item présentation : html (html-4.0, XHTML, XML, HTML5), css, javascript, templates, \ldots
-		\item communications : fichiers, flux, http/s, ftp/s, \ldots
-		\item \ldots
-	\end{itemize}
-\end{frame}
+\input{cours_2.tex}
+\input{exercice_2.tex}
 
-\subsection{Architecture de PHP}
+\input{cours_3.tex}
+\input{exercice_3.tex}
 
-\begin{frame}{Fonctionnement WEB : client/serveur}
-	\begin{itemize}
-		\item[1] client : le navigateur WEB (Firefox, Chromium, Lynx, IE, \ldots)
-			\begin{itemize}
-				\item effectue des requêtes : URL (requête HTTP + commande GET, POST, PUT, DELETE)
-				\item interprète la réponse reçue : HTML, fichier, CSS, javascript, erreurs (404, 500, 501, \ldots) 
-			\end{itemize} 
-		\item[2] serveur : httpd 
-			\begin{itemize}
-				\item httpd ouvre, décode éventuellement la session HTTPS
-				\item httpd interprète les URL et appelle le script PHP
-				\item PHP exécute le script et génère une réponse HTTP : header HTTP + document
-			\end{itemize}
-		\item protocole de communication : HTTP 1.1 (éventuellement encapsulé dans un tunnel SSL)
-		 	\begin{itemize}
-		 		\item transporte la requête HTTP (URL + entêtes)
-		 		\item transporte la réponse HTTP (entêtes + document)
-		 	\end{itemize}
-	\end{itemize}
-\end{frame}
 
-\begin{frame}{Installation}
-	\begin{itemize}
-		\item PHP est un exécutable ; les permissions et droits de l'utilisateur exécutant et ceux sur les fichiers et l'exécutable s'appliquent :
-			\begin{itemize}
-				\item l'utilisateur et l'environnement de httpd en mode WEB
-				\item l'utilisateur courant et son environnement en mode CLI
-			\end{itemize}
-		\item PHP est livré avec des bibliothèques et des fichiers de configuration
-	\end{itemize}
-	Installation :
-	\begin{itemize}
-		\item GNU/Linux : paquet \texttt{php} directement depuis le dépôt (\texttt{.deb}, \texttt{.rpm}, \texttt{.tgz}, \ldots) ; penser aux paquets \texttt{libapachemod-php5}, \ldots
-		\item Microsoft Windows : \texttt{WAMP} (Windows Apache MySQL PHP)
-		\item Apple MACOSX : \texttt{MAMP} (Mac Apache MySQL PHP), \texttt{AMPPS}, \ldots
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Configuration}
-	Plusieurs notions :
-	\begin{itemize}
-		\item environnement : prod, dev, test, \ldots
-		\item fonctionnalités : dés/activer des extensions, type et niveau d'erreurs, \ldots
-		\item paramétrage : accès mail, accès bdd, \ldots
-		\item sécurité : exposition de données sensibles, niveaux de chiffrages, hachage, \ldots
-	\end{itemize}
-	Plusieurs niveaux :
-	\begin{itemize}
-		\item global : \texttt{php.ini} (\texttt{/etc/php/})
-		\item utilisateur : \texttt{.user.ini} (\texttt{\textasciitilde/}, \texttt{\$HOME/})
-		\item service : \texttt{php.ini} (\texttt{/etc/apache/conf.d/})
-		\item projet : configuration httpd (\texttt{apache.conf}, \texttt{.htaccess})
-		\item on-the-fly : \texttt{ini\_get()} et \texttt{ini\_set()}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Éléments de configuration importants}
-	\begin{itemize}
-		\item max\_memory
-		\item maxfilesize
-		\item maxuploadsize
-	\end{itemize}
-\end{frame}
-
-\section{Exercice \textnumero{}1 : \texttt{Hello world!}}
-
-\begin{frame}{Hello world!}
-\end{frame}
-
-\section{Cours \textnumero{}2 : Les éléments du langage}
-
-%\subsection{Éléments du langage}
-
-%\begin{frame}{Les éléments}
-%\begin{itemize}
-%\item application ou programme : abstrait, regroupant le reste.
-%\item espaces de nom : organise le code et évite les collisions
-%\item fichiers : scripts, inclusions, définitions, configurations
-%\item classes : déjà définies ou à définir
-%\item fonctions ou clôtures : déjà définies ou à définir
-%\item structures du langage (\texttt{if}, \texttt{while}, \texttt{switch}, \texttt{\{\}}) : déjà définies
-%\item instructions : le code
-%\item commentaires et documentation : pour le développeur
-%\item variables : \emph{références} à des valeurs
-%\item types de valeur (classes) : typage \emph{faible}
-%\item valeurs : les données
-%\item constantes : valeurs définies une seule fois
-%\end{itemize}
-%\end{frame}
-
-\subsection{Application}
-
-\begin{frame}{Application PHP}
-
-\end{frame}
-
-\subsection{Espaces de nom}
-
-\begin{frame}{Espaces de nom}
-
-\end{frame}
-
-\subsection{Fichiers}
-
-\begin{frame}{Scripts}
-
-\end{frame}
-
-\begin{frame}{Inclusions}
-
-\end{frame}
-
-\begin{frame}{Fichiers de définition de classe}
-
-\end{frame}
-
-\begin{frame}{Fichiers \texttt{.ini}}
-
-\end{frame}
-
-\subsection{Classes}
-
-\begin{frame}{Classes \guillemotleft~normales~\guillemotright}
-
-\end{frame}
-
-\begin{frame}{Méthodes}
-
-\end{frame}
-
-\begin{frame}{Données de classe}
-
-\end{frame}
-
-\begin{frame}{Instanciation, libération}
-
-\end{frame}
-
-\begin{frame}{Visibilité}
-
-\end{frame}
-
-\begin{frame}{Redéfinition et surcharge}
-
-\end{frame}
-
-\begin{frame}{Héritage}
-
-\end{frame}
-
-\begin{frame}{Classes abstraites}
-
-\end{frame}
-
-\begin{frame}{Interface}
-
-\end{frame}
-
-\subsection{Fonctions, clôtures}
-
-\begin{frame}{Fonctions} %function name()
-
-\end{frame}
-
-\begin{frame}{Paramètres}
-
-\end{frame}
-
-\begin{frame}{Fonctions anonymes} %function ()
-
-\end{frame}
-
-\begin{frame}{Clôtures de code} %traits
-
-\end{frame}
-
-\subsection{Contrôle de l’exécution}
-
-\begin{frame}{Exécution conditionnelle} %if
-
-\end{frame}
-
-\begin{frame}{Exécution en boucle} %while
-
-\end{frame}
-
-\begin{frame}{Exécution sélective} %switch
-
-\end{frame}
-
-\begin{frame}{Regroupement en bloc anonyme} %{}
-
-\end{frame}
-
-\begin{frame}{Exceptions} % try
-
-\end{frame}
-
-\subsection{Instructions}
-
-\begin{frame}{Instruction}
-
-\end{frame}
-
-\begin{frame}{Affectation}
-
-\end{frame}
-
-\begin{frame}{Appels}
-
-\end{frame}
-
-\subsection{Commentaires et documentation}
-
-\begin{frame}{Commentaires}
-
-\end{frame}
-
-\begin{frame}{Documentation}
-
-\end{frame}
-
-\subsection{Variables}
-
-\begin{frame}{Variable}
-
-\end{frame}
-
-\begin{frame}{Référence}
-
-\end{frame}
-
-\subsection{Types de valeurs, valeurs et constantes}
-
-\begin{frame}{Types de valeurs}
-Les scalaires :
-\begin{itemize}
-\item Entiers relatifs : \texttt{int}
-\item Flottants : \texttt{float}
-\item Chaîne de caractère : \texttt{string}
-\item Booléen : \texttt{bool}
-\end{itemize}
-Les non scalaires :
-\begin{itemize}
-\item Tableaux : \texttt{array}
-\item Objet : \texttt{object}
-\end{itemize}
-Le pseudo-type \texttt{null}.
-\end{frame}
-
-\begin{frame}{Entier}
-
-\end{frame}
-
-\begin{frame}{Flottant}
-
-\end{frame}
-
-\begin{frame}{Chaîne de caractères}
-
-\end{frame}
-
-\begin{frame}{Booléen}
-
-\end{frame}
-
-\begin{frame}{Tableau}
-
-\end{frame}
-
-\begin{frame}{Objet}
-
-\end{frame}
-
-\begin{frame}{Sans type}
-
-\end{frame}
-
-\section{Règles d’écriture}
-
-\begin{frame}{Pourquoi ?}
-
-\end{frame}
-
-\begin{frame}{Éléments concernés}
-
-\end{frame}
-
-\subsection{Quelques exemples/suggestions de règles}
-
-\begin{frame}{Concernant les espacements}
-
-\end{frame}
-
-\begin{frame}{Concernant l’indentation et les accolades}
-
-\end{frame}
-
-\begin{frame}{Concernant la nomenclature des éléments}
-
-\end{frame}
-
-\begin{frame}{Commentaires et documentation}
-
-\end{frame}
-
-\begin{frame}{Types de données, bibliothèques, versions}
-
-\end{frame}
-
-\section{Technologies annexes}
-
-\subsection{Sessions}
-
-\subsection{Authentification}
-
-\subsection{Caches}
-
-\subsection{Codage caractères}
+%\section{Technologies annexes}
+%
+%\subsection{Sessions}
+%
+%\subsection{Authentification}
+%
+%\subsection{Caches}
+%
+%\subsection{Codage caractères}
 
 \end{document}
