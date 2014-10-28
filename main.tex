@@ -4,7 +4,7 @@
 
 % Document maître.
 
-\documentclass{beamer}
+\documentclass[8pt]{beamer}
 % Replace the \documentclass declaration above
 % with the following two lines to typeset your 
 % lecture notes as a handout:
@@ -14,6 +14,7 @@
 \usepackage[french]{babel}
 \usepackage{textcomp}
 \usepackage{listings,xcolor}
+\usepackage{ulem}
 %\usepackage{inconsolata}
 
 %\usetheme{Montpellier}
@@ -53,8 +54,10 @@
 \definecolor{dkyellow}{cmyk}{0,0,.8,.3}
 
 \lstset{
+  inputencoding   = utf8,
   language        = php,
-  basicstyle      = \small\ttfamily,
+%  basicstyle      = \small\ttfamily,
+  basicstyle      = \footnotesize\ttfamily,
   keywordstyle    = \color{dkblue},
   stringstyle     = \color{red},
   identifierstyle = \color{dkgreen},
@@ -62,11 +65,17 @@
   emph            =[1]{php},
   emphstyle       =[1]\color{black},
   emph            =[2]{if,and,or,else},
-  emphstyle       =[2]\color{dkyellow}}
+  emphstyle       =[2]\color{dkyellow},
+  tabsize         = 4,
+  showspaces      = false
+}
 
 
 \begin{frame}
   \titlepage
+  \begin{footnotesize}
+  un certain nombre de passages de ce cours sont tirés directement de la documentation PHP.net CC-By PHP Documentation Group.
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}{Sommaire}
@@ -74,14 +83,14 @@
 \end{frame}
 
 
-\input{cours_1.tex}
-\input{exercice_1.tex}
+\input{cours_presentation.tex}
+\input{exercice_presentation.tex}
 
-\input{cours_2.tex}
-\input{exercice_2.tex}
+\input{cours_elementslangage.tex}
+\input{exercice_elementslangage.tex}
 
-\input{cours_3.tex}
-\input{exercice_3.tex}
+\input{cours_ecriture.tex}
+\input{exercice_ecriture.tex}
 
 
 %\section{Technologies annexes}
