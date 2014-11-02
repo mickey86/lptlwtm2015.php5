@@ -5,4 +5,39 @@
 
 \section{Manipulation des chaînes de caractères}
 
+\begin{frame}{Généralités}
+	\begin{itemize}
+		\item un élément de type \texttt{string} est une suite de caractères traités comme des octets : pas unicode, sauf si l’extension \texttt{mbstrings} est configurée. Dans ce cas, une partie des fonctions de traitement de texte gèrent les caractères multi-octets (UTF-8, notamment) ; d’autres doivent être explicitement informés du codage caractère, les autres ne gèrent pas autre chose que le mono-octet.
+		\item \texttt{string} permet la manipulation de chaînes jusqu’à 2147483647 octets (2GiB).
+		\item 4 représentations dans le code : 
+		\begin{itemize}
+			\item \emph{single quote} et \emph{nowdoc} : chaînes sans substitution de variable ni échappement (sauf \textbackslash{}\textbackslash{} et \textbackslash{}\'{})
+			\item \emph{double quote} et \emph{heredoc} : chaînes avec substitution de variable et échappement
+		\end{itemize}
+	\end{itemize}
+\end{frame}
 
+\begin{frame}[containsverbatim]{Fonctions de chaînes}
+	Constructions :
+	\begin{itemize}
+		\item Directement avec les 4 représentations.
+		\item Par expression :
+		\begin{itemize}
+			\item Concaténation (\texttt{.} et \texttt{.=}) : \lstinline~$chaine = "chaine " . "autre chaine" ;~ ou \lstinline~$var = 5 ; $chaine = "chaine " . $var ;~
+		\end{itemize}
+		\item Conversion : \lstinline~strval()~, \lstinline~sprintf()~, \lstinline~print_r()~, etc\ldots
+		\item Génération : \lstinline~implode()~, \lstinline~number_format()~, \lstinline~bin2hex()~, \lstinline~str_repeat()~, etc\ldots
+	\end{itemize}
+	Transformations :
+	\begin{itemize}
+		\item \lstinline~explode()~, \lstinline~str_replace()~, \lstinline~strtolower()~, \lstinline~strtoupper()~, \lstinline~substr()~, etc\ldots
+		\item \lstinline~preg_replace()~, \lstinline~preg_replace_callback()~
+	\end{itemize}
+		Tests et calculs :
+	\begin{itemize}
+		\item \lstinline~strlen()~, \lstinline~strpos()~, \lstinline~ord()~, etc\ldots
+		\item \lstinline~preg_grep()~, \lstinline~preg_match()~, etc\ldots
+	\end{itemize}
+	\url{http://fr2.php.net/manual/en/ref.strings.php}\\
+	\url{http://fr2.php.net/manual/en/ref.pcre.php}\\
+\end{frame}

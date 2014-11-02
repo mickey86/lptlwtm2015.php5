@@ -39,7 +39,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[containsverbatim]{Espaces}
+\begin{frame}[containsverbatim]{Espacements}
 	La mise en page du code : 
 	\begin{itemize}
 		\item espacement horizontal : début de ligne (indentation), entre les éléments du langage, à la fin de la ligne
@@ -97,6 +97,24 @@ foreach ($mesValeurs as $indice => $valeur) {
 }
 		\end{lstlisting}
 	\end{block}
+\end{frame}
+
+
+\begin{frame}{Organisation du code}
+	Certains éléments sont attendus à certains endroits :
+	\begin{itemize}
+		\item Il est important de respecter tout au long du projet l’ordre de déclaration des éléments : encore une fois, permet trouver rapidement ce que l’on cherche.
+		\item On déclare/importe les éléments avant de les utiliser : on n’écrit pas un roman à suspense
+		\item Dans la mesure du possible, regrouper les éléments par types ou thèmes
+		\item Documenter les objets dès leur déclaration, dans le fichier même et à proximité de l’objet.
+	\end{itemize}
+	Par exemple :
+	\begin{itemize}
+		\item Définition de classes : on définit les propriétés au début, puis le constructeur et le destructeur, puis les getters et setters, puis les méthodes redéfinies et/ou implémentées (en général ce qui est statique se retrouve au début des catégories)
+		\item Dans une fonction, on déclare les variables statiques, puis les autres variables avant les instructions (dans la mesure du possible)
+		\item Les \texttt{include()}s et \texttt{require()}s au début des fichiers
+		\item La documentation avant chaque déclaration (fichiers, classes, propriétés, méthodes, fonctions, etc\ldots)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Découpage du code}
