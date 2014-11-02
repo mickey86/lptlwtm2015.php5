@@ -2,70 +2,69 @@
 
 \section{Les éléments du langage}
 
-
 \subsection{Types de valeurs, valeurs et constantes}
 
 \begin{frame}{Types de valeurs}
-Les scalaires :
-\begin{itemize}
-\item Entiers relatifs : \texttt{int}
-\item Flottants : \texttt{float}
-\item Chaîne de caractères : \texttt{string}
-\item Booléen : \texttt{bool}
-\end{itemize}
-Les non scalaires :
-\begin{itemize}
-\item Tableau : \texttt{array}
-\item Objet : \texttt{object}
-\item Ressource : \texttt{resource}
-\end{itemize}
-Le pseudo-type \texttt{null}
+	Les scalaires :
+	\begin{itemize}
+		\item Entiers relatifs : \texttt{int}
+		\item Flottants : \texttt{float}
+		\item Chaîne de caractères : \texttt{string}
+		\item Booléen : \texttt{bool}
+	\end{itemize}
+	Les non scalaires :
+	\begin{itemize}
+		\item Tableau : \texttt{array}
+		\item Objet : \texttt{object}
+		\item Ressource : \texttt{resource}
+	\end{itemize}
+	Le pseudo-type \texttt{null}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Entier}
-\begin{itemize}
-\item entier relatif : $[-2^{31}$ ; $2^{31} - 1]$ ou  $[-2^{63}$ ; $2^{63} - 1]$ (32 ou 64 bits selon l'architecture système)
-\item est pris automatiquement pris pour un entier si seul dans une chaîne de caractères
-\item peut être représenté dans différentes bases (2, 8, 10, 16) 
-\end{itemize}
-\begin{block}{code : entiers}
-\begin{lstlisting}
+	\begin{itemize}
+		\item entier relatif : $[-2^{31}$ ; $2^{31} - 1]$ ou  $[-2^{63}$ ; $2^{63} - 1]$ (32 ou 64 bits selon l'architecture système)
+		\item est pris automatiquement pris pour un entier si seul dans une chaîne de caractères
+		\item peut être représenté dans différentes bases (2, 8, 10, 16) 
+	\end{itemize}
+	\begin{block}{code : entiers}
+		\begin{lstlisting}
 <?php
 	$a = 1234 ; // un nombre decimal
 	$a = -123 ; // un nombre negatif
 	$a = 0123 ; // un nombre octal (equivalent a 83 en decimal)
 	$a = 0x1A ; // un nombre hexadecimal (equivalent a 26 en decimal)
 	$a = 0b11111111 ; // un nombre binaire (equivalent a 255 en decimal)
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Flottant}
-\begin{itemize}
-\item nombres à partie décimale (14 chiffres de précision) sur 64 ou 128 bits selon l'architecture système
-\item environ $1,8 \times 10^{308}$ est un maximum fréquent
-\item s'écrit avec la convention anglosaxone (point et pas virgule pour le séparateur décimal)  
-\end{itemize}
-\begin{block}{code : flottants}
-\begin{lstlisting}
+	\begin{itemize}
+		\item nombres à partie décimale (14 chiffres de précision) sur 64 ou 128 bits selon l'architecture système
+		\item environ $1,8 \times 10^{308}$ est un maximum fréquent
+		\item s'écrit avec la convention anglosaxone (point et pas virgule pour le séparateur décimal)  
+	\end{itemize}
+	\begin{block}{code : flottants}
+		\begin{lstlisting}
 <?php
 	$a = 1.234 ;
 	$b = 1.2e3 ;
 	$c = 7E-10 ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Chaîne de caractères}
-\begin{itemize}
-\item suite de caractères, de longueur 0 à 2Gio, codage unicode (UTF-8 ou UTF-16) en interne PHP, mais il faut transcoder explicitement ou automatiquement
-\item utilisation d'échappement des caractères : \texttt{\textbackslash{}n}, \texttt{\textbackslash{}r}, \texttt{\textbackslash{}t}, \texttt{\textbackslash{}v}, \texttt{\textbackslash{}\textbackslash{}}, \texttt{\textbackslash{}'}, \texttt{\textbackslash{}"}, \texttt{\textbackslash{}\$}, \ldots
-\item chaînes de caractères littérales : pas de substitution de variable possible
-\item chaînes de caractères interprétable : des substitutions de variables peuvent intervenir
-\item quatre représentations possibles : \texttt{''}, \texttt{""}, \texttt{nowdoc}, \texttt{heredoc}
-\end{itemize}
-\begin{block}{code : chaînes de caractères}
-\begin{lstlisting}
+	\begin{itemize}
+		\item suite de caractères, de longueur 0 à 2Gio, codage unicode (UTF-8 ou UTF-16) en interne PHP, mais il faut transcoder explicitement ou automatiquement
+		\item utilisation d'échappement des caractères : \texttt{\textbackslash{}n}, \texttt{\textbackslash{}r}, \texttt{\textbackslash{}t}, \texttt{\textbackslash{}v}, \texttt{\textbackslash{}\textbackslash{}}, \texttt{\textbackslash{}'}, \texttt{\textbackslash{}"}, \texttt{\textbackslash{}\$}, \ldots
+		\item chaînes de caractères littérales : pas de substitution de variable possible
+		\item chaînes de caractères interprétable : des substitutions de variables peuvent intervenir
+		\item quatre représentations possibles : \texttt{''}, \texttt{""}, \texttt{nowdoc}, \texttt{heredoc}
+	\end{itemize}
+	\begin{block}{code : chaînes de caractères}
+		\begin{lstlisting}
 <?php
 	$n = 27 ;
 	echo 'une chaine de $n caracteres' ; // une chaine de $n caracteres
@@ -84,17 +83,17 @@ lignes, de plus de $n caracteres.
 EOCHAINE;
 /* Une chaine de caracteres HEREDOC sur plusieurs
 lignes, de plus de $n caracteres. */
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Booléen}
-\begin{itemize}
-\item \texttt{true} et \texttt{false}
-\item les autres types de valeurs peuvent être interprétés comme des booléens
-\end{itemize}
-\begin{block}{code : booléens}
-\begin{lstlisting}
+	\begin{itemize}
+		\item \texttt{true} et \texttt{false}
+		\item les autres types de valeurs peuvent être interprétés comme des booléens
+	\end{itemize}
+	\begin{block}{code : booléens}
+		\begin{lstlisting}
 <?php
 	$a = true ;
 	$b = false ;
@@ -102,19 +101,19 @@ lignes, de plus de $n caracteres. */
 	$c == false ; // true !
 	$c == "" ; // true !
 	$c === "" ; // false !?
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Tableau}
-\begin{itemize}
-\item représente une liste ordonnée de valeurs
-\item les valeurs peuvent être de tout type PHP
-\item les valeurs sont indicées par un scalaire : entier, chaîne de caractère, flottant, \ldots
-\item les valeurs et les indices peuvent être de types différents dans un même tableau, et chaque élément peuvent accueillir successivement des valeurs de types différents
-\end{itemize}
-\begin{block}{code : tableaux}
-\begin{lstlisting}
+	\begin{itemize}
+		\item représente une liste ordonnée de valeurs
+		\item les valeurs peuvent être de tout type PHP
+		\item les valeurs sont indicées par un scalaire : entier, chaîne de caractère, flottant, \ldots
+		\item les valeurs et les indices peuvent être de types différents dans un même tableau, et chaque élément peuvent accueillir successivement des valeurs de types différents
+	\end{itemize}
+	\begin{block}{code : tableaux}
+		\begin{lstlisting}
 <?php
 	$a = array () ;
 	$b = array (1, 2, $a) ;
@@ -127,18 +126,18 @@ lignes, de plus de $n caracteres. */
 	$e[4] = "b" ;
 	$e[5]['g'] = null ;
 	$e = [1, &$b, 3, "b", array ('g' => null, new MaClasse ())] ; // True !
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Objet}
-\begin{itemize}
-\item découle directement de l'instanciation d'une classe
-\item l'accès aux membres de la classe se fait via l'opérateur \texttt{->}
-\item sa valeur découle directement de ses propriétés 
-\end{itemize}
-\begin{block}{code : objets}
-\begin{lstlisting}
+	\begin{itemize}
+		\item découle directement de l'instanciation d'une classe
+		\item l'accès aux membres de la classe se fait via l'opérateur \texttt{->}
+		\item sa valeur découle directement de ses propriétés 
+	\end{itemize}
+	\begin{block}{code : objets}
+		\begin{lstlisting}
 <?php
 	class foo {
 		function do_foo () {
@@ -148,17 +147,17 @@ lignes, de plus de $n caracteres. */
 
 	$bar = new foo () ;
 	$bar->do_foo () ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Sans type}
-\begin{itemize}
-\item \texttt{null} représente une absence de valeur
-\item lorsqu'on affecte \texttt{null} à une variable, elle est libérée et les références à la valeur remplacée aussi !
-\end{itemize}
-\begin{block}{code : null}
-\begin{lstlisting}
+	\begin{itemize}
+		\item \texttt{null} représente une absence de valeur
+		\item lorsqu'on affecte \texttt{null} à une variable, elle est libérée et les références à la valeur remplacée aussi !
+	\end{itemize}
+	\begin{block}{code : null}
+		\begin{lstlisting}
 <?php
 	$a = null ;
 	isset ($a) == false ; // true !
@@ -175,22 +174,22 @@ lignes, de plus de $n caracteres. */
 	$n = new MaClasse () ;
 	$n = null ;
 	$n == null ; // true, evidemment.
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Variables}
 
 \begin{frame}[containsverbatim]{Variable}
-\begin{itemize}
-\item représente une valeur nommée ; ou peut ne pas avoir de valeur (\texttt{null})
-\item est, implicitement (en interne), un pointeur sur une valeur
-\item \texttt{\$[\_a-zA-Z][\_a-zA-Z0-9]*}, des variables sont déjà définies par PHP, certaines peuvent être reécrites, d'autres non : \texttt{\$GLOBALS}, \texttt{\$\_SERVER}, \ldots
-\item n'est pas typée, peut contenir successivement plusieurs valeurs de types différents
-\item a un domaine d'existence : portée ou scope
-\end{itemize}
-\begin{block}{code : variables}
-\begin{lstlisting}
+	\begin{itemize}
+		\item représente une valeur nommée ; ou peut ne pas avoir de valeur (\texttt{null})
+		\item est, implicitement (en interne), un pointeur sur une valeur
+		\item \texttt{\$[\_a-zA-Z][\_a-zA-Z0-9]*}, des variables sont déjà définies par PHP, certaines peuvent être reécrites, d'autres non : \texttt{\$GLOBALS}, \texttt{\$\_SERVER}, \ldots
+		\item n'est pas typée, peut contenir successivement plusieurs valeurs de types différents
+		\item a un domaine d'existence : portée ou scope
+	\end{itemize}
+	\begin{block}{code : variables}
+		\begin{lstlisting}
 <?php
 	$a = 1 ;
 	$_MaVariable = "Ma Valeur" ;
@@ -202,19 +201,19 @@ lignes, de plus de $n caracteres. */
 	function add ($a, $b) {
 		return $a + $b ;
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Référence}
-\begin{itemize}
-\item une référence peut être vue comme un pointeur, mais \textbf{ne} peut \textbf{pas} être manipulé en tant que tel (ainsi qu'on peut le faire avec des pointeurs en \texttt{C})
-\item toute variable, peut être vue comme un pointeur sur une valeur, certaines variables pointent sur la même instance de valeur (même zone mémoire), on les appelle des références
-\item une valeur n'est plus accessible dès lors que toutes les références à celle-ci sont détruites (via \texttt{unset ()} ou \texttt{= null})
-\item une référence à une valeur est créée avec l'opérateur \texttt{\&}
-\end{itemize}
-\begin{block}{code : références}
-\begin{lstlisting}
+	\begin{itemize}
+		\item une référence peut être vue comme un pointeur, mais \textbf{ne} peut \textbf{pas} être manipulé en tant que tel (ainsi qu'on peut le faire avec des pointeurs en \texttt{C})
+		\item toute variable, peut être vue comme un pointeur sur une valeur, certaines variables pointent sur la même instance de valeur (même zone mémoire), on les appelle des références
+		\item une valeur n'est plus accessible dès lors que toutes les références à celle-ci sont détruites (via \texttt{unset ()} ou \texttt{= null})
+		\item une référence à une valeur est créée avec l'opérateur \texttt{\&}
+	\end{itemize}
+	\begin{block}{code : références}
+		\begin{lstlisting}
 <?php
 	$a = 1
 	$b = & $a ;
@@ -226,39 +225,39 @@ lignes, de plus de $n caracteres. */
 		$a += $b ;
 		return $a ;
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Constantes}
 
 \begin{frame}[containsverbatim]{Constantes}
-\begin{itemize}
-	\item valeur nommée, mais inchangeable
-	\item le nom de la constante suit les mêmes règles de nommage des variables, mais sans le \texttt{\$}
-	\item habituellement, en PHP, les noms des constantes sont en majuscule
-	\item des constantes magiques existent (des constantes qui changent de valeur :) ) : \texttt{\_\_LINE\_\_}, \texttt{\_\_FILE\_\_}, \texttt{\_\_DIR\_\_}, \texttt{\_\_FUNCTION\_\_}, \texttt{\_\_CLASS\_\_}, \ldots
-\end{itemize}
-\begin{block}{code : constantes}
-\begin{lstlisting}
+	\begin{itemize}
+		\item valeur nommée, mais inchangeable
+		\item le nom de la constante suit les mêmes règles de nommage des variables, mais sans le \texttt{\$}
+		\item habituellement, en PHP, les noms des constantes sont en majuscule
+		\item des constantes magiques existent (des constantes qui changent de valeur :) ) : \texttt{\_\_LINE\_\_}, \texttt{\_\_FILE\_\_}, \texttt{\_\_DIR\_\_}, \texttt{\_\_FUNCTION\_\_}, \texttt{\_\_CLASS\_\_}, \ldots
+	\end{itemize}
+	\begin{block}{code : constantes}
+		\begin{lstlisting}
 <?php
 	define ("MA_CONSTANTE", "sa valeur") ;
 	echo MA_CONSTANTE ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Commentaires et documentation}
 
 \begin{frame}[containsverbatim]{Commentaires}
-\begin{itemize}
-\item destinés aux développeurs (et aux curieux)
-\item démystifient le code, explicite un code un peu confus ou complexe ou optimisé
-\item permettent la lecture rapide d'un code sans avoir à le décrypter
-\item doivent toujours être à jour vis-à-vis du code ! 
-\end{itemize}
-\begin{block}{code : commentaires}
-\begin{lstlisting}
+	\begin{itemize}
+		\item destinés aux développeurs (et aux curieux)
+		\item démystifient le code, explicite un code un peu confus ou complexe ou optimisé
+		\item permettent la lecture rapide d'un code sans avoir à le décrypter
+		\item doivent toujours être à jour vis-à-vis du code ! 
+	\end{itemize}
+	\begin{block}{code : commentaires}
+		\begin{lstlisting}
 <?php
 	// Si $a est non null et que la valeur incrementee n'est pas zero...
 	if (isset ($a) && $a ++) {
@@ -271,19 +270,19 @@ lignes, de plus de $n caracteres. */
 	
 	/* Un commentaire
 	sur plusieurs lignes si necessaire. */
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Documentation}
-\begin{itemize}
-\item destinée aux développeurs et utilisateurs du code
-\item renseigne sur le comportement et la composition des objets définis (fichiers, classes, méthodes, fonctions, variables, constantes, \ldots)
-\item doit être systématique, exhaustive, à jour, structurée !
-\item doxygen, javadoc, \ldots
-\end{itemize}
-\begin{block}{code : documentation}
-\begin{lstlisting}
+	\begin{itemize}
+		\item destinée aux développeurs et utilisateurs du code
+		\item renseigne sur le comportement et la composition des objets définis (fichiers, classes, méthodes, fonctions, variables, constantes, \ldots)
+		\item doit être systématique, exhaustive, à jour, structurée !
+		\item doxygen, javadoc, \ldots
+	\end{itemize}
+	\begin{block}{code : documentation}
+		\begin{lstlisting}
 <?php
 	/** Classe representant les donnees personnelles d'un utilisateur. */
 	class user {
@@ -306,60 +305,60 @@ lignes, de plus de $n caracteres. */
 			return "Bonjour, je m'appelle {$this->name}." ;
 		}
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Expressions}
 
 \begin{frame}[containsverbatim]{Expression}
-Combinaison (via des opérateurs ou des fonctions) de valeurs qui retourne une valeur
-\begin{itemize}
-	\item \lstinline!1!, \lstinline!array ('nom' => 'toto')!, \lstinline!$t['nom']! : une valeur ; \lstinline!$a! : une valeur de variable
-	\item \lstinline!$a + sqrt (2)!, \lstinline!$a <= 5!, \lstinline!$a ++! : une expression mathématique, booléenne
-	\item \lstinline!strlen ('toto' . "titi $a")! : un appel de fonction
-	\item \lstinline!isset ($a) ? "" : 3! : une opération quelconque
-	\item \lstinline!(1 + strlen ('toto')) * 2)! : gestion des priorités avec \texttt{()}
-	\item \lstinline!$a = 1! : est une expression, elle retourne la valeur de \lstinline!$a! après affectation
-	\item n'importe quelle combinaison d'expressions
-	\item le type résultant de l'expression est déterminé lors de son évaluation (typage faible)
-\end{itemize}
-Ne sont pas considérées comme expressions :
-\begin{itemize}
-	\item \lstinline!if ($a == null) { /* ... */ }!, \lstinline!while (true) { /* ... */ }!
-	\item \lstinline*echo "hello world!"* : \texttt{echo} n'est pas une fonction, mais une structure du langage PHP
-	
-\end{itemize}
+	Combinaison (via des opérateurs ou des fonctions) de valeurs qui retourne une valeur
+	\begin{itemize}
+		\item \lstinline!1!, \lstinline!array ('nom' => 'toto')!, \lstinline!$t['nom']! : une valeur ; \lstinline!$a! : une valeur de variable
+		\item \lstinline!$a + sqrt (2)!, \lstinline!$a <= 5!, \lstinline!$a ++! : une expression mathématique, booléenne
+		\item \lstinline!strlen ('toto' . "titi $a")! : un appel de fonction
+		\item \lstinline!isset ($a) ? "" : 3! : une opération quelconque
+		\item \lstinline!(1 + strlen ('toto')) * 2)! : gestion des priorités avec \texttt{()}
+		\item \lstinline!$a = 1! : est une expression, elle retourne la valeur de \lstinline!$a! après affectation
+		\item n'importe quelle combinaison d'expressions
+		\item le type résultant de l'expression est déterminé lors de son évaluation (typage faible)
+	\end{itemize}
+	Ne sont pas considérées comme expressions :
+	\begin{itemize}
+		\item \lstinline!if ($a == null) { /* ... */ }!, \lstinline!while (true) { /* ... */ }!
+		\item \lstinline*echo "hello world!"* : \texttt{echo} n'est pas une fonction, mais une structure du langage PHP
+		
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Opérateurs}
-\begin{itemize}
-	\item La précédence des opérateurs : \texttt{()} (\url{http://fr2.php.net/manual/en/language.operators.precedence.php})
-	\item Les opérateurs arithmétiques : \lstinline!-$a!, \lstinline!$a + $b!, \lstinline!$a - $b!, \lstinline!$a * $b!, \lstinline!$a / $b!, \lstinline!$a % $b!, \lstinline!$a ** $b! 
-	\item Les opérateurs d'affectation : \lstinline!$a = 0!, \lstinline!$a += 1!, \lstinline!$a -= 1!, \lstinline!$a *= 1!, \lstinline!$a /= 1!, \lstinline!$a .= 'toto'!, \ldots
-	\item Opérateurs sur les bits : \lstinline!~$a!, \lstinline!$a & $b!, \lstinline!$a | $b!, \lstinline!$a ^ $b!, \lstinline!$a << $b!, \lstinline!$a >> $b!
-	\item Opérateurs de comparaison : \lstinline!$a == $b!, \lstinline!$a === $b!, \lstinline*$a != $b*, \lstinline!$a <> $b!, \lstinline!$a < $b!, \lstinline!$a > $b!, \lstinline!$a <= $b!, \lstinline!$a >= $b!, \lstinline*$a !== $b*, 
-	\item Opérateur de contrôle d'erreur : \lstinline!@ $a / 0! (ignore les erreurs générées par l'expression, bof :/)
-	\item Opérateur d'exécution : \lstinline!`ls -lA`! (exécute une commande système et retourne la sortie standard)
-	\item Opérateurs d'incrémentation et décrémentation : \lstinline!$a ++!, \lstinline!$a --!, \lstinline!-- $a!, \lstinline!++ $a!
-	\item Les opérateurs logiques : \lstinline!$a and $b!, \lstinline!$a or $b!, \lstinline!$a xor $b!, \lstinline*!$a*, \lstinline!$a && $b!, \lstinline!$a || $b! 
-	\item Opérateurs de chaînes : \lstinline!$a . $b!, \lstinline!$a .= $b!
-	\item Opérateurs de tableaux : \lstinline!$a + $b!, \lstinline!$a == $b!, \lstinline!$a === $b!, \lstinline*$a != $b*, \lstinline!$a <> $b!, \lstinline*$a !== $b*
-	\item Opérateurs de types : \lstinline!$a instanceof 'Classe'!, \lstinline!$a instanceof Classe!
-\end{itemize}
+	\begin{itemize}
+		\item La précédence des opérateurs : \texttt{()} (\url{http://fr2.php.net/manual/en/language.operators.precedence.php})
+		\item Les opérateurs arithmétiques : \lstinline!-$a!, \lstinline!$a + $b!, \lstinline!$a - $b!, \lstinline!$a * $b!, \lstinline!$a / $b!, \lstinline!$a % $b!, \lstinline!$a ** $b! 
+		\item Les opérateurs d'affectation : \lstinline!$a = 0!, \lstinline!$a += 1!, \lstinline!$a -= 1!, \lstinline!$a *= 1!, \lstinline!$a /= 1!, \lstinline!$a .= 'toto'!, \ldots
+		\item Opérateurs sur les bits : \lstinline!~$a!, \lstinline!$a & $b!, \lstinline!$a | $b!, \lstinline!$a ^ $b!, \lstinline!$a << $b!, \lstinline!$a >> $b!
+		\item Opérateurs de comparaison : \lstinline!$a == $b!, \lstinline!$a === $b!, \lstinline*$a != $b*, \lstinline!$a <> $b!, \lstinline!$a < $b!, \lstinline!$a > $b!, \lstinline!$a <= $b!, \lstinline!$a >= $b!, \lstinline*$a !== $b*, 
+		\item Opérateur de contrôle d'erreur : \lstinline!@ $a / 0! (ignore les erreurs générées par l'expression, bof :/)
+		\item Opérateur d'exécution : \lstinline!`ls -lA`! (exécute une commande système et retourne la sortie standard)
+		\item Opérateurs d'incrémentation et décrémentation : \lstinline!$a ++!, \lstinline!$a --!, \lstinline!-- $a!, \lstinline!++ $a!
+		\item Les opérateurs logiques : \lstinline!$a and $b!, \lstinline!$a or $b!, \lstinline!$a xor $b!, \lstinline*!$a*, \lstinline!$a && $b!, \lstinline!$a || $b! 
+		\item Opérateurs de chaînes : \lstinline!$a . $b!, \lstinline!$a .= $b!
+		\item Opérateurs de tableaux : \lstinline!$a + $b!, \lstinline!$a == $b!, \lstinline!$a === $b!, \lstinline*$a != $b*, \lstinline!$a <> $b!, \lstinline*$a !== $b*
+		\item Opérateurs de types : \lstinline!$a instanceof 'Classe'!, \lstinline!$a instanceof Classe!
+	\end{itemize}
 \end{frame}
 
 \subsection{Instructions}
 
 \begin{frame}[containsverbatim]{Instruction}
-\begin{itemize}
-\item Affectation ou expression
-\item finit par \texttt{;} (ou \texttt{?>})
-\item en général, une par ligne
-\item une instruction retourne une valeur (la plupart du temps)
-\end{itemize}
-\begin{block}{code : instructions}
-\begin{lstlisting}
+	\begin{itemize}
+		\item Affectation ou expression
+		\item finit par \texttt{;} (ou \texttt{?>})
+		\item en général, une par ligne
+		\item une instruction retourne une valeur (la plupart du temps)
+	\end{itemize}
+	\begin{block}{code : instructions}
+		\begin{lstlisting}
 <?php
 	$a = 1 ;
 	$a ++ ;
@@ -370,15 +369,15 @@ Ne sont pas considérées comme expressions :
 	$a = $b = (int) 3 + strlen ((string) $c) ;
 	$a = $b == $c ;
 	echo $a ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Contrôle de l’exécution}
 
 \begin{frame}[containsverbatim]{Exécution conditionnelle} %if
-\begin{block}{code : if}
-\begin{lstlisting}
+	\begin{block}{code : if}
+		\begin{lstlisting}
 <?php
 	if (/* expression */) {
 		/* instructions */
@@ -395,19 +394,19 @@ Ne sont pas considérées comme expressions :
 	} elseif { // ou else if
 		/* instructions */
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Exécution en boucle} %while
-\begin{itemize}
-\item boucle conditionnelle (tant que) : \texttt{while () \{\}}
-\item boucle sur liste ou tableau (pour chaque élément) : \texttt{foreach (as) \{\}}
-\item boucle itérative : \texttt{for (;;) \{\}}
-\item contrôle des boucles via : \lstinline!break ;!, \lstinline!continue ;!
-\end{itemize}
-\begin{block}{code : for, foreach, while}
-\begin{lstlisting}
+	\begin{itemize}
+		\item boucle conditionnelle (tant que) : \texttt{while () \{\}}
+		\item boucle sur liste ou tableau (pour chaque élément) : \texttt{foreach (as) \{\}}
+		\item boucle itérative : \texttt{for (;;) \{\}}
+		\item contrôle des boucles via : \lstinline!break ;!, \lstinline!continue ;!
+	\end{itemize}
+	\begin{block}{code : for, foreach, while}
+		\begin{lstlisting}
 <?php
 	while (/* expression */) {
 		/* instructions */
@@ -425,16 +424,16 @@ Ne sont pas considérées comme expressions :
 	for ($i = 0 ; $i < 10 ; $i ++) {
 		/* instructions */
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Exécution sélective} %switch
-\begin{itemize}
-\item exécution conditionnelle selon plusieurs valeurs scalaires
-\end{itemize}
-\begin{block}{code}
-\begin{lstlisting}
+	\begin{itemize}
+		\item exécution conditionnelle selon plusieurs valeurs scalaires
+	\end{itemize}
+	\begin{block}{code}
+		\begin{lstlisting}
 <?php
 	$n = (int) random (10) ;
 	switch ($n) {
@@ -451,17 +450,17 @@ Ne sont pas considérées comme expressions :
 	default :
 		echo 'superieur ou egal a 5' ;
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Exceptions} % try
-\begin{itemize}
-\item permet de capturer une erreur d'exécution, de traiter l'erreur et finir le boulot
-\item les exceptions retournées par PHP sont des objets de classes dérivant de \texttt{Exception}
-\end{itemize}
-\begin{block}{code}
-\begin{lstlisting}
+	\begin{itemize}
+		\item permet de capturer une erreur d'exécution, de traiter l'erreur et finir le boulot
+		\item les exceptions retournées par PHP sont des objets de classes dérivant de \texttt{Exception}
+	\end{itemize}
+	\begin{block}{code}
+		\begin{lstlisting}
 <?php
 	function diviser ($a, $b) {
 		try {
@@ -473,23 +472,23 @@ Ne sont pas considérées comme expressions :
 			return null ;
 		}
 	}
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Fonctions}
 
 \begin{frame}[containsverbatim]{Fonctions} %function name()
-\begin{itemize}
-\item déclaration : signature + corps (sauf pour les méthodes abstraites)
-\item l'identificateur (nom) : \texttt{[\_a-zA-Z][\_a-zA-Z0-9]*}
-\item requiert zéro ou plusieurs paramètres selon la signature
-\item le corps est compris entre \{ et \}, démarre par la première instruction et finit par la dernière instruction ou par l'instruction \lstinline!return /* ... */ ;!
-\item retourne une seule valeur (via \texttt{return}) ou une référence (défini dans la signature par \&) vers la valeur
-\item a un domaine d'existence : portée, scope
-\end{itemize}
-\begin{block}{déclaration}
-\begin{lstlisting}
+	\begin{itemize}
+		\item déclaration : signature + corps (sauf pour les méthodes abstraites)
+		\item l'identificateur (nom) : \texttt{[\_a-zA-Z][\_a-zA-Z0-9]*}
+		\item requiert zéro ou plusieurs paramètres selon la signature
+		\item le corps est compris entre \{ et \}, démarre par la première instruction et finit par la dernière instruction ou par l'instruction \lstinline!return /* ... */ ;!
+		\item retourne une seule valeur (via \texttt{return}) ou une référence (défini dans la signature par \&) vers la valeur
+		\item a un domaine d'existence : portée, scope
+	\end{itemize}
+	\begin{block}{déclaration}
+		\begin{lstlisting}
 <?php
 function ajouter ($a, $b = 0) {
 	return $a + $b ;
@@ -499,51 +498,51 @@ function & incrementer (&$a, $b = 1) {
 	$a += $b ;
 	return $a ;
 }
-\end{lstlisting}
-\end{block} 
+		\end{lstlisting}
+	\end{block} 
 \end{frame}
 
 \begin{frame}[containsverbatim]{Paramètres de fonctions}
-Ou arguments.
-\begin{itemize}
-\item passage par valeur : \lstinline!function afficher ($a) { echo $a ; }!, une copie de la valeur est effectuée au moment de l'appel de la fonction, la valeur \texttt{\$a} dans la fonction est indépendante de la valeur du code appelant
-\item passage par référence : \lstinline!function incrementer (& $a) { $a ++ ; }!, une référence de la valeur est passée à la fonction, toute modification de \texttt{\$a} dans la fonction est effectuée sur la valeur de la variable dans le code appelant
-\item un paramètre peut être optionnel, mais il lui faut une valeur par défaut : \lstinline!function ajouter ($a, $b = 1) { return $a + $b ; }!, lors de l'appel de cette fonction, on peut omettre le paramètre (\lstinline!$c = ajouter (10, 1) ; $d = ajouter (2) ;!)
-\item un paramètre peut être typé (PHP $\ge$ 5.1) par \texttt{array}, \texttt{objet}, \texttt{callable}, mais pas par les types scalaires !
-\item lors de l'appel, on peut préciser plus de paramètres que déclarés dans la signature : liste variable de paramètres. Dans la fonction, on les récupère en tant que tableau de valeurs (ou de références) via les fonctions \texttt{func\_get\_args ()}, \texttt{func\_num\_args ()}
-\item depuis PHP 5.6, on peut utiliser le mot clé \texttt{...} avant le paramètre dans la signature pour préciser que tous les paramètres suivants sont stockés dans ce paramètre : \lstinline!function ajouter (...$num) { $s = 0 ; foreach ($num as $n) { $s += $n ; } return $s ; }! 
-\end{itemize}
+	Ou arguments.
+	\begin{itemize}
+		\item passage par valeur : \lstinline!function afficher ($a) { echo $a ; }!, une copie de la valeur est effectuée au moment de l'appel de la fonction, la valeur \texttt{\$a} dans la fonction est indépendante de la valeur du code appelant
+		\item passage par référence : \lstinline!function incrementer (& $a) { $a ++ ; }!, une référence de la valeur est passée à la fonction, toute modification de \texttt{\$a} dans la fonction est effectuée sur la valeur de la variable dans le code appelant
+		\item un paramètre peut être optionnel, mais il lui faut une valeur par défaut : \lstinline!function ajouter ($a, $b = 1) { return $a + $b ; }!, lors de l'appel de cette fonction, on peut omettre le paramètre (\lstinline!$c = ajouter (10, 1) ; $d = ajouter (2) ;!)
+		\item un paramètre peut être typé (PHP $\ge$ 5.1) par \texttt{array}, \texttt{objet}, \texttt{callable}, mais pas par les types scalaires !
+		\item lors de l'appel, on peut préciser plus de paramètres que déclarés dans la signature : liste variable de paramètres. Dans la fonction, on les récupère en tant que tableau de valeurs (ou de références) via les fonctions \texttt{func\_get\_args ()}, \texttt{func\_num\_args ()}
+		\item depuis PHP 5.6, on peut utiliser le mot clé \texttt{...} avant le paramètre dans la signature pour préciser que tous les paramètres suivants sont stockés dans ce paramètre : \lstinline!function ajouter (...$num) { $s = 0 ; foreach ($num as $n) { $s += $n ; } return $s ; }! 
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Fonctions anonymes} %function ()
-\begin{itemize}
-\item fonction à usage unique ou jetable, une fonction anonyme n'a pas de nom : \lstinline!function ($a) { /* corps */ }!
-\item s'utilise dans certains contextes
-\end{itemize}
-\begin{block}{code : fonctions anonymes}
-\begin{lstlisting}
+	\begin{itemize}
+		\item fonction à usage unique ou jetable, une fonction anonyme n'a pas de nom : \lstinline!function ($a) { /* corps */ }!
+		\item s'utilise dans certains contextes
+	\end{itemize}
+	\begin{block}{code : fonctions anonymes}
+		\begin{lstlisting}
 <?php
 $ajouter = function ($a, $b) { return $a + $b ; }
 $s = $ajouter (1 + 2) ;
 
 $a = array (/* ... */) ;
 $b = array_walk (function ($e) { return $e + 1 ; }, $a) ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 
 \subsection{Classes}
 
 \begin{frame}[containsverbatim]{Les classes}
-PHP $\ge$ 5.0.0 devient orienté objet.
-\begin{itemize}
-\item notion de classes classique : classe, objet/instance, abstraite, interface, héritage (simple), surcharge, \ldots
-\item \texttt{traits} \ldots
-\item définition et implémentation dans le même fichier (différent de java, par exemple)
-\end{itemize}
-\begin{block}{définition de classe}
-\begin{lstlisting}
+	PHP $\ge$ 5.0.0 devient orienté objet.
+	\begin{itemize}
+		\item notion de classes classique : classe, objet/instance, abstraite, interface, héritage (simple), surcharge, \ldots
+		\item \texttt{traits} \ldots
+		\item définition et implémentation dans le même fichier (différent de java, par exemple)
+	\end{itemize}
+	\begin{block}{définition de classe}
+		\begin{lstlisting}
 // definition
 class A {
 
@@ -561,13 +560,13 @@ interface iC { /* ... */ }
 
 // definition classe abstraite et heritage d'interface
 abstract class D extends iC { /* ... */ } 
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : \guillemotleft~normales~\guillemotright}
-\begin{block}{définition de classe}
-\begin{lstlisting}
+	\begin{block}{définition de classe}
+		\begin{lstlisting}
 class A {
 
 	/** Ma donnee : un entier */
@@ -593,93 +592,92 @@ class A {
 		$this->var ++ ;
 	} 
 } 
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : les méthodes}
-\begin{itemize}
-\item \lstinline!public function nom ($parametre) { /* corps */ }! ou \lstinline!function nom ($parametre) { /* corps */ }! : méthode publique, utilisable par tout le monde, redéfinissable dans les classes descendantes
-\item \lstinline!private function nom ($param1, $param2) { /* corps */}! : méthode privée, utilisable depuis un objet de la même classe
-\item \lstinline!protected function nom ($param1, $param2) { /* corps */}! : méthode protégée, utilisable depuis un objet de la même classe ou descendante, redéfinissable
-\item \lstinline!static function nom ($param) { /* corps */}! : méthode statique ou méthode de classe, utilisable sans instancier la classe
-\item \lstinline!final function nom ($param) { /* corps */}! : méthode finale, non redéfinissable
-\item \lstinline!abstract function nom ($param) ;! : méthode abstraite, sans corps, obligatoirement redéfinie dans la classe descendante, implique que la classe où elle est déclarée est aussi abstraite.
-\item \lstinline!public function __get ($name) { /* corps */ }! : méthode magique (ici un getter, surcharge de l'opération de lecture d'une propriété), \ldots
-\end{itemize}
+	\begin{itemize}
+		\item \lstinline!public function nom ($parametre) { /* corps */ }! ou \lstinline!function nom ($parametre) { /* corps */ }! : méthode publique, utilisable par tout le monde, redéfinissable dans les classes descendantes
+		\item \lstinline!private function nom ($param1, $param2) { /* corps */}! : méthode privée, utilisable depuis un objet de la même classe
+		\item \lstinline!protected function nom ($param1, $param2) { /* corps */}! : méthode protégée, utilisable depuis un objet de la même classe ou descendante, redéfinissable
+		\item \lstinline!static function nom ($param) { /* corps */}! : méthode statique ou méthode de classe, utilisable sans instancier la classe
+		\item \lstinline!final function nom ($param) { /* corps */}! : méthode finale, non redéfinissable
+		\item \lstinline!abstract function nom ($param) ;! : méthode abstraite, sans corps, obligatoirement redéfinie dans la classe descendante, implique que la classe où elle est déclarée est aussi abstraite.
+		\item \lstinline!public function __get ($name) { /* corps */ }! : méthode magique (ici un getter, surcharge de l'opération de lecture d'une propriété), \ldots
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : les propriétés}
-Attributs, membres, champs, \ldots
-\begin{itemize}
-\item \lstinline!public $var ;! : déclaration d'une propriété publique (accessible par tout le monde), sans initialisation
-\item \lstinline!public $var = 'valeur' ;! : déclaration avec une valeur initiale
-\item \lstinline!private $var = array (10, 'val') ;! : propriété privée, la valeur initiale est un tableau de valeurs
-\item \lstinline!protected $var = 6 ;! : propriété protégée
-\item \lstinline!static $var = 2 ;! : propriété statique, propriété de classe, accessible lorsque la classe n'est pas instanciée
-\end{itemize}
+	Attributs, membres, champs, \ldots
+	\begin{itemize}
+		\item \lstinline!public $var ;! : déclaration d'une propriété publique (accessible par tout le monde), sans initialisation
+		\item \lstinline!public $var = 'valeur' ;! : déclaration avec une valeur initiale
+		\item \lstinline!private $var = array (10, 'val') ;! : propriété privée, la valeur initiale est un tableau de valeurs
+		\item \lstinline!protected $var = 6 ;! : propriété protégée
+		\item \lstinline!static $var = 2 ;! : propriété statique, propriété de classe, accessible lorsque la classe n'est pas instanciée
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : instanciation, libération}
-Instanciation : 
-\begin{itemize}
-\item \lstinline!$o = new MyClass ('val') ;!
-\item crée une instance de la classe MyClass, appelle la méthode \lstinline!MyClass::__construct ($var)! si elle est définie
-
-\end{itemize}
-Libération :
-\begin{itemize}
-\item \lstinline!unset $o ;!
-\item libère l'objet \lstinline!$o! après avoir appelé la méthode \lstinline!MyClass::__destruct ()! si elle est définie
-\item ne libère pas automatiquement les propriétés de type objet ou référencés, à faire explicitement dans \lstinline!__destruct ()!
-\end{itemize}
+	Instanciation : 
+	\begin{itemize}
+		\item \lstinline!$o = new MyClass ('val') ;!
+		\item crée une instance de la classe MyClass, appelle la méthode \lstinline!MyClass::__construct ($var)! si elle est définie
+	\end{itemize}
+	Libération :
+	\begin{itemize}
+		\item \lstinline!unset $o ;!
+		\item libère l'objet \lstinline!$o! après avoir appelé la méthode \lstinline!MyClass::__destruct ()! si elle est définie
+		\item ne libère pas automatiquement les propriétés de type objet ou référencés, à faire explicitement dans \lstinline!__destruct ()!
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : visibilité}
-Concerne les méthodes et les propriétés, statiques ou pas.
-\begin{itemize}
-\item \texttt{public} : publique, pas de restriction de visibilité
-\item \texttt{protected} : protégée, visibilité et utilisabilité restreinte à la classe, ses descendants et ascendants
-\item \texttt{private} : privée, visibilité et utilisabilité restreinte à la classe où c'est déclaré 
-\item sans mot clé \texttt{public}, \texttt{protected}, \texttt{private}, la visibilité par défaut est publique.
-\item \lstinline!var $var ;! est identique à \lstinline!public $var ;!
-\item Lors de l'héritage, les classes descendantes peuvent restreindre la visibilité, pas l'étendre : \texttt{public} \textrightarrow \texttt{protected}, \texttt{public} \textrightarrow \texttt{private}, \texttt{protected} \textrightarrow \texttt{private}, \sout{\texttt{public} \textleftarrow \texttt{private}}, \ldots
-\end{itemize}
+	Concerne les méthodes et les propriétés, statiques ou pas.
+	\begin{itemize}
+		\item \texttt{public} : publique, pas de restriction de visibilité
+		\item \texttt{protected} : protégée, visibilité et utilisabilité restreinte à la classe, ses descendants et ascendants
+		\item \texttt{private} : privée, visibilité et utilisabilité restreinte à la classe où c'est déclaré 
+		\item sans mot clé \texttt{public}, \texttt{protected}, \texttt{private}, la visibilité par défaut est publique.
+		\item \lstinline!var $var ;! est identique à \lstinline!public $var ;!
+		\item Lors de l'héritage, les classes descendantes peuvent restreindre la visibilité, pas l'étendre : \texttt{public} \textrightarrow \texttt{protected}, \texttt{public} \textrightarrow \texttt{private}, \texttt{protected} \textrightarrow \texttt{private}, \sout{\texttt{public} \textleftarrow \texttt{private}}, \ldots
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : redéfinition et surcharge}
-Redéfinition de méthode :
-\begin{itemize}
-\item changement de comportement de la méthode de même nom dans la classe fille
-\item on ne redéfinit que les méthodes accessibles depuis la classe fille, la visibilité de la redéfinition est la même ou restreinte
-\item l'ancêtre de la méthode redéfinie reste accessible en la nommant explicitement : \lstinline!ClasseParent::MaMethode () ;! ou \lstinline!parent::MaMethode () ;!
-\end{itemize}
-Surcharge de méthode :
-\begin{itemize}
-\item rajoute du comportement à la méthode de même nom dans la classe fille
-\begin{itemize}
-	\item appelle dans le corps de la méthode \lstinline!MaMethode()! la méthode ancêtre via \lstinline!parent::MaMethode()!
-	\item se fait notamment pour \lstinline!__construct ()! et \lstinline!__destruct ()!
-\end{itemize}
-\item rajoute un comportement à une opération sur la classe ou l'objet : méthode magique
-\begin{itemize}
-	\item \lstinline!__get ($prop)! : est appelée lors de l'accès à la propriété \lstinline!$prop! inaccessible (restreinte ou inexistante)
-	\item \lstinline!__set ($prop, $value)! : est appelée lors de l'affectation d'une valeur à une propriété inaccessible
-	\item \lstinline!__call ($func, $params)! : est appelée lors de l'appel d'une méthode inaccessible
-	\item \lstinline!__isset ()! : est appelée lors du test \lstinline!isset ($o)!
-	\item \ldots
-\end{itemize}
-\end{itemize}
+	Redéfinition de méthode :
+	\begin{itemize}
+		\item changement de comportement de la méthode de même nom dans la classe fille
+		\item on ne redéfinit que les méthodes accessibles depuis la classe fille, la visibilité de la redéfinition est la même ou restreinte
+		\item l'ancêtre de la méthode redéfinie reste accessible en la nommant explicitement : \lstinline!ClasseParent::MaMethode () ;! ou \lstinline!parent::MaMethode () ;!
+	\end{itemize}
+	Surcharge de méthode :
+	\begin{itemize}
+		\item rajoute du comportement à la méthode de même nom dans la classe fille
+		\begin{itemize}
+			\item appelle dans le corps de la méthode \lstinline!MaMethode()! la méthode ancêtre via \lstinline!parent::MaMethode()!
+			\item se fait notamment pour \lstinline!__construct ()! et \lstinline!__destruct ()!
+		\end{itemize}
+		\item rajoute un comportement à une opération sur la classe ou l'objet : méthode magique
+		\begin{itemize}
+			\item \lstinline!__get ($prop)! : est appelée lors de l'accès à la propriété \lstinline!$prop! inaccessible (restreinte ou inexistante)
+			\item \lstinline!__set ($prop, $value)! : est appelée lors de l'affectation d'une valeur à une propriété inaccessible
+			\item \lstinline!__call ($func, $params)! : est appelée lors de l'appel d'une méthode inaccessible
+			\item \lstinline!__isset ()! : est appelée lors du test \lstinline!isset ($o)!
+			\item \ldots
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Les classes : héritage}
-\begin{itemize}
-\item héritage classique, non multiple
-\item implémentation d'interface multiples
-\item la classe mère doit être évidemment définie et chargée avant la classe fille
-\end{itemize}
-\begin{block}{code : héritage}
-\begin{lstlisting}
+	\begin{itemize}
+		\item héritage classique, non multiple
+		\item implémentation d'interface multiples
+		\item la classe mère doit être évidemment définie et chargée avant la classe fille
+	\end{itemize}
+	\begin{block}{code : héritage}
+		\begin{lstlisting}
 <?php
 abstract class MaClasse { /* ... */ }
 
@@ -690,63 +688,63 @@ interface iIFace1 { /* ... */ }
 interface iIFace2 { /* ... */ }
 
 class Classe extends MaClasse implements iIFace1, iIFace2 { /* ... */ } 
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \subsection{Fichiers}
 
 \begin{frame}[containsverbatim]{Scripts}
-\begin{itemize}
-\item \texttt{script} : ensemble du code entre l'appel et la fin d'exécution
-\item extension habituelles : \texttt{.php} (script chapeau), \texttt{.php.inc} (fichiers inclus), \texttt{.ini} (configuration), \texttt{.php.class} (définition de classe), \ldots
-\item le code PHP dans un fichier doit être précédé de \texttt{<?php}
-\item le code PHP dans un fichier doit être suivi de \texttt{?>} ou pas !
-\item on fait référence à un fichier PHP via son chemin dans le système de fichier (et pas l'URL) relativement au chemin du script chapeau ou de façon absolue.
-\end{itemize}
-\begin{block}{fichier.php}
-\begin{lstlisting}
+	\begin{itemize}
+		\item \texttt{script} : ensemble du code entre l'appel et la fin d'exécution
+		\item extension habituelles : \texttt{.php} (script chapeau), \texttt{.php.inc} (fichiers inclus), \texttt{.ini} (configuration), \texttt{.php.class} (définition de classe), \ldots
+		\item le code PHP dans un fichier doit être précédé de \texttt{<?php}
+		\item le code PHP dans un fichier doit être suivi de \texttt{?>} ou pas !
+		\item on fait référence à un fichier PHP via son chemin dans le système de fichier (et pas l'URL) relativement au chemin du script chapeau ou de façon absolue.
+	\end{itemize}
+	\begin{block}{fichier.php}
+		\begin{lstlisting}
 <?php
 	echo 'Salut le monde !' ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Inclusions}
-\begin{itemize}
-\item fragmente les gros blocs de code monolithique
-\item regroupe les fonctionnalités
-\item 4 types d'inclusions :
-\begin{itemize}
-\item inclusion simple : \lstinline$include ("fichier.php.inc") ;$ (continue le script si le fichier est manquant, peut être inclus plusieurs fois)
-\item inclusion unique : \lstinline$include_once ("fichier.php.inc") ;$ (continue le script si le fichier est manquant, n'est pas inclus si le fichier l'a déjà été durant le script)
-\item inclusion obligatoire simple : \lstinline$require ("fichier.php.inc") ;$ (le script s'arrête si le fichier est manquant, peut être inclus plusieurs fois)
-\item inclusion obligatoire unique : \lstinline$require_once ("fichier.php.inc") ;$ (le script s'arrête si le fichier est manquant, n'est pas inclus si le fichier l'a déjà été durant le script)
-\end{itemize}
-\end{itemize}
-\begin{block}{inclusions}
-\begin{lstlisting}
+	\begin{itemize}
+		\item fragmente les gros blocs de code monolithique
+		\item regroupe les fonctionnalités
+		\item 4 types d'inclusions :
+		\begin{itemize}
+			\item inclusion simple : \lstinline$include ("fichier.php.inc") ;$ (continue le script si le fichier est manquant, peut être inclus plusieurs fois)
+			\item inclusion unique : \lstinline$include_once ("fichier.php.inc") ;$ (continue le script si le fichier est manquant, n'est pas inclus si le fichier l'a déjà été durant le script)
+			\item inclusion obligatoire simple : \lstinline$require ("fichier.php.inc") ;$ (le script s'arrête si le fichier est manquant, peut être inclus plusieurs fois)
+			\item inclusion obligatoire unique : \lstinline$require_once ("fichier.php.inc") ;$ (le script s'arrête si le fichier est manquant, n'est pas inclus si le fichier l'a déjà été durant le script)
+		\end{itemize}
+	\end{itemize}
+	\begin{block}{inclusions}
+		\begin{lstlisting}
 <?php
 	include ("repertoire/fichier.php.inc") ;
 	include_once ("autre_fichier.php.inc") ;
 	require ("../autrerepertoire/fichier3.php.inc") ;
 	require_once ("/home/user1/fichier4.php.inc") ;
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 
 \subsection{Espaces de nom}
 
 \begin{frame}[containsverbatim]{Espaces de nom, définition}
-Depuis PHP $\ge$ 5.3.0
-\begin{itemize}
-\item encapsulation/nommage d'objets (classes, interface, fonctions, constantes)
-\item éviter les collisions
-\item créer des alias
-\end{itemize}
-\begin{block}{fichier1.php (définition)}
-\begin{lstlisting}
+	Depuis PHP $\ge$ 5.3.0
+	\begin{itemize}
+		\item encapsulation/nommage d'objets (classes, interface, fonctions, constantes)
+		\item éviter les collisions
+		\item créer des alias
+	\end{itemize}
+	\begin{block}{fichier1.php (définition)}
+		\begin{lstlisting}
 <?php
 	namespace MonProjet ;
 	
@@ -754,27 +752,27 @@ Depuis PHP $\ge$ 5.3.0
 	class Connexion { /* ... */ }
 	function connecte() { /* ... */  }
 ?>
-\end{lstlisting}
-\end{block}
-\begin{block}{fichier2.php (définition sous-espace)}
-\begin{lstlisting}
+		\end{lstlisting}
+	\end{block}
+	\begin{block}{fichier2.php (définition sous-espace)}
+		\begin{lstlisting}
 <?php
 	namespace MonProjet\SousEspace ;
 
 	function disconnect () { /* ... */ }
 ?>
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 \begin{frame}[containsverbatim]{Espaces de nom, utilisation}
-\begin{itemize}
-\item nom non qualifié : \texttt{Foo()}
-\item nom qualifié : \texttt{SousEspace\textbackslash{}Foo()}
-\item nom absolu : \texttt{\textbackslash{}MonProjet\textbackslash{}SousEspace\textbackslash{}Foo()}
-\end{itemize}
-\begin{block}{importation et utilisation}
-\begin{lstlisting}
+	\begin{itemize}
+		\item nom non qualifié : \texttt{Foo()}
+		\item nom qualifié : \texttt{SousEspace\textbackslash{}Foo()}
+		\item nom absolu : \texttt{\textbackslash{}MonProjet\textbackslash{}SousEspace\textbackslash{}Foo()}
+	\end{itemize}
+	\begin{block}{importation et utilisation}
+		\begin{lstlisting}
 <?php
 	use MonProjet ;
 	
@@ -783,31 +781,30 @@ Depuis PHP $\ge$ 5.3.0
 	$b = connecte() ;
 	SousEspace\disconnect() ;
 ?>
-\end{lstlisting}
-\end{block}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
 
 \subsection{Application}
 
 \begin{frame}{Application PHP}
-\begin{itemize}
-	\item pas de notion d'application
 	\begin{itemize}
-		\item pas d'objet syntaxique particulier
-		\item pas de limitation de fichier (\texttt{chroot})
-		\item deux applications PHP peuvent interférer
+		\item pas de notion d'application
+		\begin{itemize}
+			\item pas d'objet syntaxique particulier
+			\item pas de limitation de fichier (\texttt{chroot})
+			\item deux applications PHP peuvent interférer
+		\end{itemize}
+		\item une application PHP est et devrait être définie par le développeur
+		\begin{itemize}
+			\item configuration (une par application, par exemple)
+			\item variables globales
+			\item éventuellement un espace de nom global
+			\item circonscrite dans un espace de fichier (sécurité : \texttt{chroot}, \texttt{apache}, \ldots)
+			\item utilisation d'un script \emph{chapeau}
+		\end{itemize}
 	\end{itemize}
-	\item une application PHP est et devrait être définie par le développeur
-	\begin{itemize}
-		\item configuration (une par application, par exemple)
-		\item variables globales
-		\item éventuellement un espace de nom global
-		\item circonscrite dans un espace de fichier (sécurité : \texttt{chroot}, \texttt{apache}, \ldots)
-		\item utilisation d'un script \emph{chapeau}
-	\end{itemize}
-\end{itemize}
-
 \end{frame}
 
 

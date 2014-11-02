@@ -3,35 +3,123 @@
 \section{Règles d’écriture}
 
 \begin{frame}{Pourquoi ?}
-\begin{itemize}
-\item Fait partie des bonnes pratiques de développement (quelque soit le langage)
-\item 
-\end{itemize}
+	\begin{itemize}
+		\item Fait partie des bonnes pratiques de développement (quelque soit le langage)
+		\item Facilité de lecture/compréhension du code (pour les auteurs et les développeurs futurs)
+		\item Systématiser/Automatiser les recherches/traitements du code (notamment lors de l’utilisation de dépôts de code qui analyse les différences entre versions)
+		\item Mettre en place des métriques du code (contrôle qualité)
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Éléments concernés}
-
+\begin{frame}{Noms}
+	Nommage des éléments :
+	\begin{itemize}
+		\item Les noms des éléments (variables, fonctions, constantes, classes, etc…)
+		\item \textbf{caml-case}, première lettre de chaque élément du nom, sauf premier élément :
+		\begin{itemize}
+			\item classes : \lstinline&class cPerson \{ /* .. */ \}&, \lstinline&interface iPerson \{ /* .. */ \}&
+			\item variables : \lstinline&\$person = new cPerson () ; &, \lstinline&\$person->lastName = "Dupond" ; &, \lstinline&\$person->firstName = "Jean" ;& 
+			\item fonctions : \lstinline&function hasChildren () \{ /* .. */ \}&, \lstinline&\$person->sayItsName () ;&
+		\end{itemize}
+		\item Avec des \textbf{underscores}, les éléments sont séparés par un underscore :
+		\begin{itemize}
+			\item classes : \lstinline&class person_class \{ /* .. */ \}&, \lstinline&interface person_iface \{ /* .. */ \}&
+			\item variables : \lstinline&\$person = new person_class () ; &, \lstinline&\$person->last_name = "Dupond" ; &, \lstinline&\$person->first_name = "Jean" ;& 
+			\item fonctions : \lstinline&function has_children () \{ /* .. */ \}&, \lstinline&\$person->say_its_name () ;&
+		\end{itemize}
+		\item \ldots
+		\item choisir un schéma, une convention de nommage et s’y tenir !
+	\end{itemize}
+	But :
+	\begin{itemize}
+		\item Déterminer rapidement à la lecture du nom ce que peut contenir une variable ou ce que fait une fonction
+		\item Avec une convention bien établie et bien réfléchie : pouvoir deviner efficacement des noms de fonctions ou des noms de classes, etc…
+		\item Construire, invoquer ou rechercher de manière systématique le nom des éléments
+		\item Fait partie des bonnes pratiques de programmation (pas qu’en PHP)
+	\end{itemize}
 \end{frame}
 
-\subsection{Quelques exemples/suggestions de règles}
-
-\begin{frame}{Concernant les espacements}
-
+\begin{frame}[containsverbatim]{Espaces}
+	La mise en page du code : 
+	\begin{itemize}
+		\item espacement horizontal : début de ligne (indentation), entre les éléments du langage, à la fin de la ligne
+		\item espacement vertical : entre les instructions, entre les blocs de code et les macros-éléments (classes, fonctions)
+		\item placement des accolades, des parenthèses et indentation : regroupement et hiérarchisation du code
+	\end{itemize}
+	But : 
+	\begin{itemize}
+		\item Déterminer au premier coup d’œil l’architecture du code (les blocs et la hiérarchie) : où débute et où termine le corps des boucles, fonctions, classes, etc…
+		\item Regrouper/Scinder les opérations unitaires, les groupes fonctionnels…
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Concernant l’indentation et les accolades}
+\begin{frame}[containsverbatim]{Mise en page — mauvaise}
+	\begin{block}{pas mis en page}
+		\begin{lstlisting}
+<?php $t = array("ceci est une chaine de caracteres"   ,1024,
+false,"une autre chaine");
+foreach ($t as $i => $s) {
+echo "La ".$i+1."e valeur ";
+// string ?
 
+
+if(is_string($s)) {echo "est une chaine de caracteres.";} 
+else
+	echo "n'est pas une chaine de caracteres.";echo "\n"     ;}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
-\begin{frame}{Concernant la nomenclature des éléments}
+\begin{frame}[containsverbatim]{Mise en page — bonne}
+	\begin{block}{bien mis en page}
+		\begin{lstlisting}
+<?php
+$mesValeurs = array (
+	"ceci est une chaine de caracteres", 
+	1024,
+	false,
+	"une autre chaine",
+) ;
 
+// On boucle sur les elements de mesValeurs
+foreach ($mesValeurs as $indice => $valeur) {
+	$numero = $indice + 1 ;
+	echo "La {$numero}e valeur " ;
+
+	// On determine si la valeur est de type string
+	if (is_string ($valeur)) {
+		echo "est une chaine de caracteres." ;
+	} else {
+		echo "n'est pas une chaine de caracteres." ;
+	}
+	
+	echo "\n" ;
+}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
 
-\begin{frame}{Commentaires et documentation}
-
-\end{frame}
-
-\begin{frame}{Types de données, bibliothèques, versions}
-
+\begin{frame}{Découpage du code}
+	\begin{itemize}
+		\item Garder le principe \textbf{KISS} (\emph{Keep It Simple, Stupid}) : une fonction, une classe, un fichier, une variable doit répondre à une problématique/fonctionnalité simple.
+		\item Découper les gros problèmes en autant de sous-problèmes simples que nécessaire : diviser pour mieux régner.
+	\end{itemize}
+	But : 
+	\begin{itemize}
+		\item Avoir le moins de code possible à lire pour trouver ce qu’on cherche.
+		\item Réutiliser des éléments atomiques est plus efficace que les macro-éléments
+		\item Fichiers : chargement (depuis le disque + analyse) plus efficace si les fichiers sont petits
+	\end{itemize}
+	Exemples :
+	\begin{itemize}
+		\item Les parties du modèle applicatif (MVC, PO/BO/DAO) : chacun un répertoire.
+		\item Un module (sous-partie d’application) : un répertoire.
+		\item Une définition de classe : un fichier.
+		\item Une entité : une classe.
+		\item Une fonction : une opération atomique technique, ou fonctionnelle.
+		\item Une donnée : une variable.
+		\item Une variable : un seul type de donnée.
+		\item \ldots
+	\end{itemize}
 \end{frame}
 
