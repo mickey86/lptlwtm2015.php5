@@ -1,1 +1,49 @@
+% Utilisation du langage — Les tableaux
+% Les fonctions array*
+
+\section{Manipulation des tableaux}
+
+\begin{frame}{Généralités}
+	\begin{itemize}
+		\item Un objet du type \texttt{array} permet de stocker des paires clé-valeurs de façon ordonnée.
+		\item Les clés sont des valeurs scalaires, les valeurs sont de tous types (même des tableaux)
+		\item Ainsi les tableaux avec les fonctions adaptées permettent de gérer des structures de données telles que : tableau, liste, file, pile, table de hachage, dictionnaire, arbre, ensemble, tas, etc\ldots
+		\item La limite en taille de la structure est celle imposée par l’environnement (système et configuration PHP)
+		\item Une des structures les plus utilisées de PHP.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Fonctions de chaînes}
+	Constructions :
+	\begin{block}{construction de tabeau}
+		\begin{lstlisting}
+<?php
+$tableau = array ("un", "deux", 3) ;
+$tableau2 = array ("one" => "un", "two" => "deux", "three" => 3) ;
+$tableau3 = array (array ("toto" => "titi"), "tutu") ;
+$tableau4["tata"] = $tableau3[0] ;
+		\end{lstlisting}
+	\end{block}
+	\begin{itemize}
+		\item Expression (\texttt{+}) : \lstinline~$tableau = $t1 + array ("valeur") ;~
+		\item Conversion : \lstinline~explode()~, \lstinline~(array)~
+		\item Génération : \lstinline~array_diff()~, \lstinline~array_fill()~, \lstinline~array_merge()~, \lstinline~array_slice()~, etc\ldots
+	\end{itemize}
+	Navigation:
+	\begin{itemize}
+		\item \lstinline~reset()~, \lstinline~prev()~, \lstinline~next()~, \lstinline~current()~, \lstinline~end()~ 
+		\item \lstinline~$tableau["tata"]~, \lstinline~$tableau["tata"][3]~
+	\end{itemize}
+	Tri, filtre, modification :
+	\begin{itemize}
+		\item \lstinline~array_filter()~, \lstinline~sort()~, \lstinline~ksort()~, \lstinline~array_walk()~, \lstinline~array_splice()~, etc\ldots
+		\item \lstinline~array_pop()~, \lstinline~array_push()~, \lstinline~array_shift()~, \lstinline~array_unshift()~, \lstinline~array_unique()~, etc\ldots
+	\end{itemize}
+		Tests et calculs :
+	\begin{itemize}
+		\item \lstinline~count()~, \lstinline~in_array()~, \lstinline~array_key_exists()~, etc\ldots
+		\item \lstinline~array_reduce()~, \lstinline~array_search()~, etc\ldots
+	\end{itemize}
+	\url{http://fr2.php.net/manual/en/ref.array.php}\\
+\end{frame}
  
