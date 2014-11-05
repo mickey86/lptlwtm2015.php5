@@ -1,0 +1,40 @@
+% Exercices sur les chaînes de caractères et les tableaux.
+
+\section{Exercices : les chaînes et les tableaux}
+
+\begin{frame}[containsverbatim]{Exercice \textnumero{1} : manipulation de chaînes}
+	Dans un répertoire dédié (à cette série d’exercices), rapatrier le fichier \texttt{lorem\_ipsum.txt}.
+	Pour charger le contenu de ce fichier dans une variable, utiliser le code suivant :
+	\begin{block}{chargement d’une chaîne de caractères à partir d’un fichier}
+		\begin{lstlisting}
+<?php
+define ("LOREM_FILE", "./lorem_ipsum.txt") ;
+
+// Si le fichier existe on charge son contenu dans la variable ; sinon, fin du programme.
+if (file_exists (LOREM_FILE)) {
+	$texte_orig = file_get_contents (LOREM_FILE) ;
+} else {
+	die ("Le fichier " . LOREM_FILE . " n'est pas disponible.") ;
+}
+		\end{lstlisting}
+	\end{block}
+	Programmer :
+	\begin{enumerate}
+		\item Afficher le contenu de la variable \texttt{\$texte\_orig}
+		\item Changer le codage caractère de \texttt{ISO8859-15} à \texttt{UTF-8} et afficher le résultat
+		\item Remplacer dans le texte les caractères accentués par leur homologue sans accent et afficher le résultat.
+		\item Justifier le texte à 100 caractères (chaque ligne ne doit pas contenir plus de 100 caractères) et afficher le résultat.
+		\Pitem Justifier sans couper les mots.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Exercice \textnumero{2} : manipulation de tableaux}
+	En reprenant le code de l’exercice précédent\ldots
+	Programmer :
+	\begin{enumerate}
+		\item Insérer chaque ligne du texte justifié comme élément dans un tableau, et afficher le résultat.
+		\item Créer un tableau de statistiques répertoriant pour chaque ligne : nombre de mots, nombre de lettre, et nombre d’occurrence de chaque lettre.
+		\item Regrouper les statistiques des occurrences des lettres dans un nouveau tableau.
+		\item Trier le tableau des statistiques globales, par lettre, l’afficher ; puis par nombre d’occurrences et l’afficher.
+	\end{enumerate}
+\end{frame}
