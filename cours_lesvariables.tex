@@ -1,0 +1,42 @@
+% Utilisation du langage — Les variables
+
+\section{Manipulation des variables}
+
+\begin{frame}[containsverbatim]{Généralités}
+	\begin{itemize}
+		\item Certaines variables existent sans qu’elles aient été créées dans le code : les variables prédéfinies ; certaines dépendent du système, du serveur et ne sont donc pas systématiquement disponibles
+		\item Certaines variables sont accessibles depuis n’importe quel endroit du code : les variables \texttt{superglobals}
+		\item Toutes les variables globales (hormis dans les fonctions, classes, etc\ldots) sont accessibles directement via le tableau \texttt{\$GLOBALS}
+		\item En général (hors les variables super-globales), les variables n’ont d’existence que là où elles sont déclarées ou utilisées pour la première fois et dans les sous domaines : boucles, fonctions, classes, fichiers, espaces de nom.
+		\item \texttt{\$this} ne peut pas être changée
+	\end{itemize}
+	Exemples :
+	\begin{itemize}
+		\item \texttt{\$GLOBALS} (rassemble toutes les variables globales), \texttt{\$argc} (le nombre de paramètres passés au script), \texttt{\$argv} (tableau des paramètres passés au script), \texttt{\$php\_errormsg} (le dernier message d’erreur)
+		\item \texttt{\$\_SERVER} (tableau de diverses informations liées au serveur et à l’exécution), \texttt{\$\_GET}, \texttt{\$\_POST}, \texttt{\$\_FILES} (les variables de la méthode HTTP GET, POST et les fichiers envoyées par le navigateur client), \texttt{\$\_SESSION} (les variables de session), \texttt{\$\_COOKIE} (les valeurs des cookies) sont spécifiques à l’environnement d’exécution du script (par exemple : pas disponible en PHP CLI)
+		\item \ldots (\url{http://fr2.php.net/manual/en/reserved.variables.php})
+	\end{itemize}
+\end{frame}
+ 
+\begin{frame}[containsverbatim]{Fonctions : les variables}
+	Création :
+	\begin{itemize}
+		\item à la première utilisation elles sont créées : \lstinline~$a = 0 ; $A = 1 + sqrt (2) ; $a != $A ; //true~
+		\item Peuvent être créées depuis un tableau : \lstinline~$t["toto"] = 2 ; $t["titi"] = "z"; extract($t) ; $toto == 2 ; $titi == "z" ; // true et true~
+	\end{itemize}
+	Modifications :
+	\begin{itemize}
+		\item Par réassignation et calcul : \lstinline~$a = 0 ; $a = 2 ; $a ++ ;~
+		\item Par changement de type : \lstinline~$a = "3" ; $a = (array) $a ;~
+		\item Suppression, libération : \lstinline~unset ($a) ; unset ($t[$b]) ;~
+	\end{itemize}
+	Tests et calculs :
+	\begin{itemize}
+		\item Vérifier l’existence de la variable ou sa valeur : \lstinline~if (isset ($a)) {}~, \lstinline~if (is_null ($a)) {}~, \lstinline~if (empty ($a)) {}~, etc\ldots  
+		\item Tester les types : \lstinline~if (is_bool ($a)) {}~, \lstinline~if (is_scalar ($a)) {}~, \lstinline~$t = gettype ($a) ;~, etc\ldots 
+		\item Récupérer les valeurs équivalentes : \lstinline~$b = boolval ($a) ;~, \lstinline~$b = intval ($a) ;~, \lstinline~$b = strval ($a) ;~, etc\ldots
+		\item Afficher ou exporter les valeurs : \lstinline~var_dump ($a)~, \lstinline~printf ("%s", $a)~, \lstinline~print_r ($a)~, \lstinline~$s = serialize ($a)~, \lstinline~$a = unserialize ($s)~, \lstinline~$e = var_export ($a)~, etc\ldots
+	\end{itemize}
+	\url{http://fr2.php.net/manual/en/book.var.php}
+\end{frame}
+ 

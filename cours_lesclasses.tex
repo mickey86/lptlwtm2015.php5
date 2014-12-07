@@ -1,0 +1,102 @@
+% Utilisation du langage — Les classes et les objets
+
+\section{Manipulation des classes et des objets}
+
+\begin{frame}[containsverbatim]{Généralités}
+	\begin{itemize}
+		\item Les concepts de classe, instance, abstraction, interface, visibilité, dérivation, etc. sont conformes aux autres langages
+		\item Contrairement aux autres types (que \texttt{object}) une instance de classe n’est pas copiée lors d’une affectation simple
+		\begin{block}{affectation d’instances de classe}
+			\begin{lstlisting}
+<?php
+$a = 1 ;
+$b = $a ; // b recoit pour valeur une copie de la valeur de a
+$a = 2 ;
+echo $b ; // affiche 1
+
+$c = new MyClass () ; // c recoit un pointeur vers une instance de la classe MyClass
+$c->val = 1 ;
+$d = $c ; // d recoit une copie du pointeur vers la meme instance que c
+$c->val = 2 ;
+echo $d->val ; // affiche 2
+			\end{lstlisting}
+		\end{block}
+		\item La pseudo-variable \texttt{\$this} représente l’instance dans lequel elle (\texttt{\$this}) se trouve ; ne doit pas être utilisée dans un contexte de classe (\texttt{static})
+		\item Le nom de classe \texttt{self} représente la classe dans laquelle il (\texttt{self}) se trouve ; le nom \texttt{parent} représente la classe parente de la classe dans laquelle il se trouve ; le nom \texttt{static} représente la classe effective compte tenu de l’instanciation et de l’héritage, lors de l’exécution !
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Fonctions : les classes et les objets}
+	Définition :
+	\begin{itemize}
+		\item Interface (pas de code, juste des signatures, peut contenir des constantes de classe) : \lstinline~interface iVehicule extends iMachine { /* definition */ }~
+		\item Classes abstraites (définition partielle) : \lstinline~abstract class Voiture implements iVehicule { /* definition */ }~
+		\item Classes normales (instanciables) : \lstinline~class Peugeot208 extends Voiture { /* definition */ }~
+	\end{itemize}
+	Construction :
+	\begin{itemize}
+		\item classique : \lstinline~$maVoiture = new Peugeot208 () ;~
+		\item par transtypage : 
+		\begin{itemize}
+			\item \lstinline~$monObjet = (object) array ("val" => 10) ; $monObjet->val == 10 ; // true~
+			\item \lstinline~$monObjet = (object) "Toto" ; $monObjet->scalar == "Toto" ; // true~
+		\end{itemize}
+		\item par clonage :
+		\begin{itemize}
+			\item \lstinline~$monClone = clone $monObjet ;~ 
+			\item attention, par défaut les objets référencés dans l’objet ne sont pas clonés
+			\item fait appel à la méthode magique \texttt{\_\_clone ()} si elle est surchargée
+		\end{itemize}
+		\item via la réflection de classe (\texttt{ReflectionClass}) : \lstinline~$monObjetRefl = new ReflectionClass ($monObjet) ; $monObjet2 = $monObjetRefl->newInstance () ;~
+	\end{itemize}
+\end{frame}
+ 
+\begin{frame}[containsverbatim]{Fonctions : les classes et les objets}
+	Modifications des classes :
+	\begin{itemize}
+		\item en utilisant la réflexion (classe \texttt{ReflectionClass}) :
+		\begin{block}{modifier une classe lors de l’exécution}
+			\begin{lstlisting}
+class maClasse { 
+	private function maMethode () {
+		/* ... */
+	}
+	/* ... */
+}
+$maClasseReflection = new ReflectionClass ("maClasse") ;
+$maClasseReflection->getMethod ("maMethode")->setAccessible (true) ;
+$monObjet = new maClasse () ;
+$monObjet->maMethode () ;
+			\end{lstlisting}
+		\end{block}
+			\item en modifiant l’état (statique) de la classe : \lstinline~maClasse::$monCompteur ++ ;~ (utiliser \texttt{self} ou \texttt{parent} ou \texttt{static} depuis l’intérieur des objets)
+	\end{itemize}
+	Modifications des objets :
+	\begin{itemize}
+		\item classiquement, en changeant son état : 
+		\begin{itemize}
+			\item \lstinline~$o->val += 12 ;~
+			\item \lstinline~$o->vals["premier"] = "a" ;~
+			\item \lstinline~$o->setSubObject = new autreClasse () ;~
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+ 
+\begin{frame}[containsverbatim]{Fonctions : les classes et les objets}
+	Tests et calculs sur les classes :
+	\begin{itemize}
+		\item en utilisant la réflexion (classe \texttt{Reflection}) : \lstinline~$etat = $maClasseReflection->getProperties () ;~
+	\end{itemize}
+	Tests et calculs sur les objets :
+	\begin{itemize}
+		\item comparaison : 
+		\begin{itemize}
+			\item simple : \lstinline~$a == $b ;~ est vrai si \texttt{\$a} et \texttt{\$b} sont de même classe et que chaque attribut ont les mêmes noms et les mêmes valeurs
+			\item identité : \lstinline~$a === $b ;~ est vrai si \texttt{\$a} et \texttt{\$b} font référence à la même instance de classe
+		\end{itemize}
+		\item appartenance à une classe : \lstinline~if ($a instanceof maClasse) {}~ ; \lstinline~if (is_a ($a, "maClasse")) {}~
+		\item \ldots
+	\end{itemize}
+	\url{http://fr2.php.net/manual/en/language.oop5.php}
+	\url{http://fr2.php.net/manual/en/book.reflection.php}
+\end{frame}

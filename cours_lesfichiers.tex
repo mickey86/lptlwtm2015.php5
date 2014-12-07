@@ -3,16 +3,34 @@
 \section{Manipulation des fichiers}
 
 \begin{frame}{Généralités}
-	\begin{itemize}
-		\item 
+	\begin{itemize} 
+		\item La manipulation des fichiers sur le système respecte les droits et permissions : l’utilisateur créant le processus (httpd en mode WEB, l’utilisateur lançant la commande php en mode CLI) doit avoir les droits suffisants sur les fichiers à manipuler.
+		\item Plusieurs types de fichiers : texte, binaire, ini, json, etc\ldots
+		\item Le codage du texte des fichiers doit être maîtrisé : connaître le codage en entrée, et en sortie.
+		\item Deux manières de manipuler les fichiers : créer un \textit{handle} (type \texttt{resource}) et manipuler les données à partir cette ressource ; en direct avec les fonctions qui font tout (ouverture, lecture/écriture, fermeture) en une seule opération.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[containsverbatim]{Fonctions}
+
+\begin{frame}{Les fonctions}
 	Constructions :
+	\begin{itemize}
+		\item \lstinline~if (false === file_put_contents ($content, "fichier.txt")) \{ /* erreur */ \}~
+		\item \lstinline~$contents = file_get_contents ("fichier.txt") ;~
+		\item \lstinline~$file_handle = fopen ("fichier.txt", "a+") ; if (false === fwrite ($file_handle, $content)) \{ /* erreur */ \} fclose ($file_handle) ;~
+		\item \lstinline~$file_handle = fopen ("fichier.txt", "r") ; $content = fread ($file_handle, 1024) ; fclose ($file_handle) ;~
+	\end{itemize}
 	Modifications :
+	\begin{itemize}
+		\item \lstinline~chmod ("/home/mikael/fichier.txt", 0755) ;~
+		\item \lstinline~rename ("/tmp/tmp_file.txt", "/home/user/login/docs/my_file.txt") ;~
+	\end{itemize}
 	Tests et calculs :
-	\url{http://fr2.php.net/manual/en/ref.array.php}\\
+	\begin{itemize}
+		\item \lstinline~$rep = dirname ("/etc/passwd") ;~
+		\item \lstinline~if (is_writable($filename)) \{ /* ... */ \}~
+	\end{itemize}
+	\url{http://fr2.php.net/manual/en/ref.filesystem.php}\\
 \end{frame}
  
  

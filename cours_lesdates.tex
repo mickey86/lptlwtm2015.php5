@@ -10,30 +10,30 @@
 			Les dates et heures sont gérées un peu différemment entre $PHP=4$, $PHP<5.2$ et $PHP\ge5.2$ : les bibliothèques entre ces versions ne sont pas totalement compatibles
 		\end{alertblock}
 		\item Le format interne est codé sur 64 bits, donc permettent de se balader dans le temps de $\pm292$ milliards d’années, environ
-		\item Depuis $PHP\gt5.2$, l’objet \texttt{DateTime} est utilisé pour représenter une date absolue ; \texttt{DateTimeZone} est utilisé pour représenter un fuseau horaire (\textit{timezone})
+		\item Depuis $PHP\ge5.2$, l’objet \texttt{DateTime} est utilisé pour représenter une date absolue ; \texttt{DateTimeZone} est utilisé pour représenter un fuseau horaire (\textit{timezone})
 		\item Depuis $PHP\ge5.3$, \texttt{DateInterval} est utilisé pour représenter un intervalle de temps/date ou une date relative ; \texttt{DatePeriod} est utilisé pour itérer sur des dates (dérive de l’interface \texttt{Traversable})
 		\item Les dates peuvent également être représentées par \texttt{timestamp} qui est un entier (\texttt{int}) représentant le nombre de secondes depuis \textit{Unix Epoch}, $1^{er}$ janvier 1970 à 00h 00m 00s GMT.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[containsverbatim]{Fonctions}
+\begin{frame}{Fonctions}
 	Constructions :
 	\begin{itemize}
-		\item Date absolue : \lstinline§$date = new DateTime ("now", new DateTimeZone ("Europe/Paris")) ;§, \lstinline§$date = DateTime::createFromFormat ("d/m/Y", "12/11/2014") ;§, etc\ldots
-		\item Durée : \lstinline§$date_interval = DateInterval::createFromDateString ('1 day') ;§
-		\item Liste de dates : \lstinline§foreach (new DatePeriod (new DateTime (), $date_interval, 10) as $d) { /* ... */ }§
-		\item Génération d’un timestamp : \lstinline§$timestamp = time () ;§, \lstinline§$timestamp2 = microtime () ;§
+		\item Date absolue : \lstinline~$date = new DateTime ("now", new DateTimeZone ("Europe/Paris")) ;~, \lstinline~$date = DateTime::createFromFormat ("d/m/Y", "12/11/2014") ;~, etc\ldots
+		\item Durée : \lstinline~$date_interval = DateInterval::createFromDateString ("1 day") ;~
+		\item Liste de dates : \lstinline~foreach (new DatePeriod (new DateTime (), $date_interval, 10) as $d) { /* ... */ }~
+		\item Génération d’un \texttt{timestamp} : \lstinline~$timestamp = time () ;~, \lstinline~$timestamp2 = microtime () ;~
 	\end{itemize}
 	Modifications :
 	\begin{itemize}
-		\item \lstinline§$date->sub (new DateInterval ("10 days")) ;§, \lstinline§$date->add (new DateInterval ("50 min")) ;§, 
-		\item \lstinline§$date->setTime (23, 59, 59) ;§
+		\item \lstinline~$date->sub (new DateInterval ("10 days")) ;~, \lstinline~$date->add (new DateInterval ("50 min")) ;~
+		\item \lstinline~$date->setTime (23, 59, 59) ;~
 	\end{itemize}
 	Tests et calculs :
 	\begin{itemize}
-		\item \lstinline§echo $date->format ("Y-m-d H:i:s") ;§
-		\item \lstinline§echo date_sunset($date->getTimestamp (), SUNFUNCS_RET_STRING) ;§
-		\item \lstinline§if (checkdate(2, 29, 2001)) { /* ... */ } else { /* ... */ }§
+		\item \lstinline~echo $date->format ("Y-m-d H:i:s") ;~
+		\item \lstinline~echo date_sunset($date->getTimestamp (), SUNFUNCS_RET_STRING) ;~
+		\item \lstinline~if (checkdate(2, 29, 2001)) \{ /* ... */ \} else \{ /* ... */ \}~
 	\end{itemize}
 	\url{http://fr2.php.net/manual/en/book.datetime.php}
 \end{frame}
