@@ -1,0 +1,33 @@
+% Utilisation du langage — Les Sessions
+
+\section{Les sessions}
+
+\begin{frame}[containsverbatim]{Généralités}
+	\begin{itemize}
+		\item Permet de conserver des données d’un appel de script sur l’autre sous condition que PHP aie pu appairer la session demandée par le navigateur avec une session déjà enregistrée.
+		\item Plusieurs mécanismes permettent d’identifier une session :
+		\begin{itemize}
+			\item Passage d’un numéro de session au navigateur dans les données HTTP, et récupération du numéro de session dans les données \texttt{GET} (URL) : très mauvaise idée !
+			\item Utilisation d’un cookie de session : plus sécurisé, pris en charge par PHP (il faut l’activer dans la configuration : \texttt{session.use\_cookies=1} et \texttt{session.use\_only\_cookies=1})
+		\end{itemize}
+		\item Pour re/démarrer une session et éventuellement la réinitialiser :
+		\begin{block}{session}
+			\begin{lstlisting}
+<?php
+// Surtout aucun envoi de donnee ou d'entete au navigateur avant session_start
+session_start () ;
+if (isset ($_SESSION["compte"])) {
+	$_SESSION["compte"] ++ ;
+} else {
+	$_SESSION["compte"] = 1 ;
+}
+if (isset ($_SESSION["reset"]) && ! empty ($_SESSION["reset"])) {
+	session_destroy () ;
+	session_restart () ;
+}
+// Script
+session_write_close () ;
+			\end{lstlisting}
+		\end{block}
+	\end{itemize}
+\end{frame}

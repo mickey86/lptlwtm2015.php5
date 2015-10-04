@@ -1,0 +1,30 @@
+% Exercices sur les formulaires et les sessions.
+
+\section{Exercices : formulaires et sessions}
+
+\begin{frame}[containsverbatim]{Exercice \textnumero{1} : Créer un formulaire}
+	Programmer :
+	\begin{enumerate}
+		\item Ajouter dans \texttt{index.php}
+		\begin{block}{}
+			\begin{lstlisting}
+if (! isset ($_REQUEST["q"])) {
+	$_REQUEST["q"] = "accueil" ;
+}
+switch ($_REQUEST["q"]) {
+case "accueil" :
+	require ("BO/accueil.php.inc") ;
+	break ;
+case "utilisateur_creer" :
+	require ("BO/utilisateur_creer.php.inc") ;
+	break ;
+default :
+	require ("BO/erreur.php.inc") ;
+}
+			\end{lstlisting}
+		\end{block}
+		\item Créer \texttt{BO/utilisateur\_creer.php.inc} qui va valider les données du formulaire si l’utilisateur a cliqué le bouton de soumission et déclencher son insertion dans la base ; ou afficher le formulaire sinon.
+		\item Créer \texttt{BO/accueil.php.inc} qui va afficher une page d’accueil avec un lien vers le formulaire de création d’un nouvel utilisateur.
+		\item Créer \texttt{BO/erreur.php.inc} qui va afficher un message d’erreur indiquant que la page demandée n’existe pas.
+	\end{enumerate}
+\end{frame}

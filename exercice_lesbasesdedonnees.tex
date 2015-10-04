@@ -1,0 +1,49 @@
+% Exercices sur la base de données.
+
+\section{Exercices : Accéder à une base de données en lecture et écriture}
+
+\begin{frame}[containsverbatim]{Manipulation \textnumero{1} : Générer une base de données}
+	Via une interface d’administration de \texttt{MySQL} (\texttt{PHPMyAdmin}, \texttt{mysql} en console ou autres clients avec droit d’administration) :
+	\begin{enumerate}
+		\item Se connecter à l’interface
+		\item Créer une nouvelle base de données \texttt{projetexercice}
+		\item Créer un utilisateur ayant accès à la nouvelle base depuis la machine PHP
+		\item Charger la structure de la base de données depuis le script \texttt{projet\_createdb.sql}
+		\item Examiner la structure, la comprendre.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Exercice \textnumero{2} : Accès à la base depuis PHP}
+	Programmer dans un nouveau projet (répertoire dédié) :
+	\begin{enumerate}
+		\item Créer \texttt{./index.php} et \texttt{./Base.php.class}
+		\item \texttt{Base.php.class} contient la définition d’une classe dérivant de PDO dont le constructeur fixe les paramètres de la connexion à la base.
+		\item dans \texttt{index.php} on instancie un objet de classe \texttt{Base} ; puis on effectue la requête suivante :
+			\begin{block}{Requête SQL}
+				\begin{lstlisting}
+SELECT U.*
+FROM utilisateur AS U
+ORDER BY U.login ASC
+			\end{lstlisting}
+		\end{block}
+		\item  Afficher le résulat.
+	\end{enumerate}
+\end{frame}
+ 
+\begin{frame}[containsverbatim]{Exercice \textnumero{3} : Manipulation d’objets}
+	Programmer dans le projet de l’exercice \textnumero{2} :
+	\begin{enumerate}
+		\item Créer le fichier \texttt{Utilisateur.php.class} contenant une classe représentant l’entité correspondante dans la base (une propriété par champ, de nom et type correspondant)
+		\item Créer le fichier \texttt{UtilisateurDAO.php.class} contenant une classe statique implémentant les opérations de base d’accès aux entités de l’interface \texttt{UtilisateurDAOIface.php.class}.
+		\item Tester chaque opération :
+		\begin{itemize}
+			\item Créer une instance de l’entité \texttt{Utilisateur}
+			\item L’insérer dans la base
+			\item Changer une information de l’utilisateur (pas sa clé primaire) et mettre à jour dans la base
+			\item La récupérer de la base
+			\item L’afficher
+			\item La supprimer de la base
+		\end{itemize}
+	\end{enumerate}
+\end{frame}
+ 

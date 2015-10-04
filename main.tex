@@ -36,12 +36,12 @@
 % \logo{\pgfuseimage{university-logo}}
 
 \AtBeginSection[]{
-	\begin{frame}<beamer>{Vous êtes ici !}
+	\begin{frame}<beamer>[shrink]{Vous êtes ici !}
 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/hide/hide,subsubsectionstyle=hide]
 	\end{frame}
 }
 \AtBeginSubsection[]{
-	\begin{frame}<beamer>{Vous êtes ici !}
+	\begin{frame}<beamer>[shrink]{Vous êtes ici !}
 		\tableofcontents[sectionstyle=show/hide,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/hide/hide/hide]
 	\end{frame}
 }
@@ -84,7 +84,7 @@
 		\end{footnotesize}
 	\end{frame}
 
-	\begin{frame}{Sommaire}
+	\begin{frame}[shrink]{Sommaire}
 		\tableofcontents[subsectionstyle=hide,subsubsectionstyle=hide]
 	\end{frame}
 
@@ -135,14 +135,23 @@
 	
 	% Utilisation du langage — Les bases de données
 	% Accès aux bases
-% 	\input{cours_lesbasesdedonnees.tex}
-%	\input{exercice_lesbasesdedonnees.tex}
+	\input{cours_lesbasesdedonnees.tex}
+	\input{exercice_lesbasesdedonnees.tex}
 	
 	% Utilisation du langage — Autres fonctions
 	% exit(), die(), eval(), etc…
 	% constant(), define(), defined()
 	% sleep(), time_nanosleep(), time_sleep_until(), usleep()
 % 	\input{cours_fonctionsutiles.tex}
+	
+	% Utilisation du langage — Données HTML
+	% Fabriquer des formulaires
+	% Interpréter les données de formulaire
+	\input{cours_lesformulaireshtml.tex}
+	
+	% Utilisation du langage — Sessions
+	\input{cours_session.tex}
+	\input{exercice_formulaires_session.tex}
 	
 	% Utilisation du langage — Exceptions
 % 	\input{cours_exceptions.tex}
@@ -155,22 +164,41 @@
 	% XDebug
 	% APD
 %	\input{cours_lesbibliotheques.tex}
-	
-	% Utilisation du langage — Données HTML
-	% Fabriquer des formulaires
-	% Interpréter les données de formulaire
-% 	\input{cours_lesformulaireshtml.tex}
-	
-	% Utilisation du langage — Affichage
-	% sorties standards
-	% objets output buffering ob_*
-% 	\input{cours_affichagebuffer.tex}
-	
-	% Utilisation du langage — Sessions
-% 	\input{cours_session.tex}
-% 	\input{exercice_formulaires_affichage_session.tex}
-	
+
 	% Architecture d’application (MVC, BO/DAO/PO)
+% \begin{frame}[containsverbatim]{Exercice \textnumero{2} : Accès à la base depuis PHP}
+% 	Programmer dans un nouveau projet (répertoire dédié) :
+% 	\begin{enumerate}
+% 		\item Créer les fichiers \texttt{./config.ini}, \texttt{./index.php}, \texttt{./BO/main.php.inc}, \texttt{./DAO/persistence.php.inc}
+% 		\begin{itemize}
+% 			\item \texttt{config.ini} contient
+% 			\begin{block}{\texttt{config.ini}}
+% 				\begin{lstlisting}
+% ; configuration de l'application
+% [bdd]
+% host = 127.0.0.1
+% port = 6600
+% name = projetexercice
+% user = changeme
+% pass = changeme
+% 				\end{lstlisting}
+% 			\end{block}
+% 			\item \texttt{index.php} va charger \texttt{config.ini} (\texttt{parse\_ini\_file()}), et stocker le tableau obtenu dans \texttt{\$CONFIG} ; créer 5 constantes \texttt{ROOT}, \texttt{BO}, \texttt{DAO}, \texttt{PO} et \texttt{TO} contenant le chemin absolu, respectivement, de l’application, du répertoire BO, du répertoire DAO, du répertoire PO, et du répertoire TO ; si aucune erreur, exécuter \texttt{main.php.inc}
+% 			\item \texttt{main.php.inc} instancier l’objet de persistence (objet unique d’accès à la base) se trouvant dans \texttt{DAO/persistence.php.inc} ; 
+% 			\begin{block}{Requête SQL}
+% 				\begin{lstlisting}
+% SELECT U.*
+% FROM utilisateur AS U
+% ORDER BY U.login ASC
+% 				\end{lstlisting}
+% 			\end{block}
+% 			\item 
+% 		\end{itemize}
+% 		\item 
+% 	\end{enumerate}
+% \end{frame}
+ 
+
 	
 	% Outils de développement en entreprise
 	

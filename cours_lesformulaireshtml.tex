@@ -1,0 +1,100 @@
+% Utilisation du langage — Les formulaires HTML
+
+\section{Les formulaires HTML}
+
+\begin{frame}[containsverbatim]{Généralités 1/2}
+	\begin{itemize}
+		\item Il s’agit d’une manière d’interagir avec l’utilisateur : l’application lui met à disposition un ensemble de champs avec des valeurs par défaut ou non, et l’utilisateur décide de les remplir ou pas, décide de renvoyer le formulaire ou pas.
+		\begin{alertblock}{Pire !}
+			L’utilisateur peut (avec des outils faciles à se procurer) renvoyer n’importe quelle réponse au serveur : mal remplir les champs, les remplir avec du code injecté, supprimer ou rajouter des champs (même s’ils n’existent pas dans le formulaire), envoyer trop de données, \ldots
+		\end{alertblock}
+		\begin{block}{Bonne pratique}
+			Vérifier et valider systèmatiquement les données renvoyées par le navigateur.
+		\end{block}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Généralités 2/2}
+	\begin{itemize}
+		\item Le protocole HTTP offre 4 méthodes d’interaction du client avec le serveur :
+		\begin{itemize}
+			\item \texttt{GET} : demande une \emph{ressource} via une URL qui peut embarquer des paramètres (\textit{query string} \textit{url-encoded})
+			\item \texttt{POST} : envoit un ensemble de données (\textit{payload} \textit{url-encoded}) représentant une \emph{ressource} à un script qui est aussi une ressource se trouvant à l’URL précisée (dans l’attribut HTML \texttt{action} de la balise \texttt{form})
+			\item \texttt{PUT} : envoit un ensemble de données (\textit{url-encoded}) représentant une nouvelle \emph{ressource} à un script qui est une ressource se trouvant à l’URL précisée en vue d’un ajout de données
+			\item \texttt{DELETE} : demande la suppression d’une \emph{ressource} précisée par son URL (qui peut contenir des paramètres \textit{url-encoded})
+			\item en retour de chacune de ces méthodes, le serveur est censé retourner une ressource (page HTML, ou un autre document, ou un fichier, etc\ldots)
+		\end{itemize}
+		\item En pratique, on n’utilise que les méthodes \texttt{GET} et \texttt{POST} (les autres méthodes restant exploitables)
+		\item Le navigateur et PHP s’arrangent à coder et décoder les données ; ainsi les données reçues et envoyées par PHP ou le navigateur sont transmises sans perte à l’autre partie
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Données de formulaire 1/2}
+	\begin{block}{formulaire HTML}
+		\begin{lstlisting}[language=html]
+<form action="foo.php" method="post" enctype="multipart/form-data" >
+    <label for="inputname">Name</label>
+	<input id="inputname" type="text" name="username" /><br />
+    <label for="inputemail">Email</label>
+	<input id="inputemail" type="text" name="email" /><br />
+	<label for="inputsexmale">male</label>
+	<input id="inputsexmale" type="radio" name="sex" value="male" />
+	<label for="inputsexfemale">female</label>
+	<input id="inputsexfemale" type="radio" name="sex" value="female" />
+	<label for="inputtopicscooking">cooking</label>
+	<input id="inputtopicscooking" type="checkbox" name="topics[]" value="cooking" />
+	<label for="inputtopicsgardening">gardening</label>
+	<input id="inputtopicsgardening" type="checkbox" name="topics[]" value="gardening" />
+	<label for="inputcolors">Color</label>
+	<select id="inputcolor" name="color">
+		<option value="none" checked="checked">none of these</option>
+		<option value="red">red</option>
+		<option value="green">green</option>
+		<option value="blue">blue</option>
+	</select>
+	<label for="inputcomment">Comment</label>
+	<textarea id="inputcomment" name="comment"></textarea>
+	<label for="inputavatar">Avatar</label>
+	<input id="hiddenmaxfilesize" type="hidden" name="MAX_FILE_SIZE" value="30000" />
+	<input id="inputavatar" type="file" name="avatar" />
+    <input type="inputsubmit" name="submit" value="submit" />
+    <input type="inputcancel" name="cancel" value="cancel" />
+</form>
+		\end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Données de formulaire 2/2}
+	\begin{block}{données côté PHP}
+		\begin{lstlisting}
+$_POST == array (
+	"username" => "mikael",
+	"email" => "mikael.cordon@atos.net",
+	"sex" => "male",
+	"topics" => array ("cooking", "gardening"),
+	"color" => "red",
+	"comment" => "I love PHP!",
+	"MAX_FILE_SIZE" => 30000,
+	"submit" => "submit",
+) ; // True
+$_FILES == array (
+	"avatar" => array (
+		"name" => "mikael_avatar.gif",
+		"type" => "image/gif",
+		"size" => "3004",
+		"tmp_name" => "YDjgznris",
+		"error" => 0,
+	),
+) ;
+if (false === ($utilisateur = UtilisateurDAO.rechercherParNom($_POST["username"]))) {
+	// Insertion !
+	if (false === move_uploaded_file($_FILES["avatar"]["tmp_name"], 
+			"/srv/share/img/" . $_FILES["avatar"]["name"])) {
+		// Erreur copie sur le serveur !
+	}
+} else {
+	// Erreur $utilisateur existe deja !
+}
+		\end{lstlisting}
+	\end{block}
+\end{frame}

@@ -1,0 +1,51 @@
+% Utilisation du langage — Les bases de données
+
+\section{Les bases de données}
+
+\begin{frame}[containsverbatim]{Généralités}
+	\begin{itemize}
+		\item Permet de gérer d’une façon structurée et efficace (du point de vue intégrité, sécurité) des données souvent volumineuses
+		\item PHP permet d’utiliser plusieurs types de bases de données : les relationnelles et autres \guillemotleft~NoSQL~\guillemotright ; parmi les SGBDR supportés : MySQL (MariaDB), PostgreSQL, Oracle, Informix, DB2, SQLite, etc\ldots ; chaque SGBDR ayant des spécificités, mais aussi un langage commun.
+		\item PHP permet d’utiliser chacun de ces bases via un driver : spécifique à la base, ou générique 
+		\begin{itemize}
+			\item \textbf{PDO} (PHP Data Objects) : l’API actuellement fournie avec PHP d’accès générique aux bases de données ; nécessite un driver PDO d’accès spécifique
+			\item ODBC : nécessite une couche d’accès (côté système)
+			\item DBA (Data Base Abstraction layer) : obsolète, PDO la remplace
+		\end{itemize}
+		\item Habituellement : 
+		\begin{enumerate}
+			\item configuration et ouverture d’une connexion vers la base de données choisie
+			\item envoi d’une ou plusieurs requêtes via la connexion ouverte et réception des données
+			\item traitement des données (répéter 2 et 3 autant de fois que nécessaire)
+			\item fermeture de la connexion
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+ 
+\begin{frame}[containsverbatim]{Fonctions : PDO}
+	\begin{block}{Accès à une base, requête et affichage du résultat}
+		\begin{lstlisting}
+$dsn = 'mysql:dbname=testdb;host=127.0.0.1' ;
+$user = 'dbuser' ;
+$pass = 'dbpass' ;
+
+try {
+    $dbh = new PDO ($dsn, $user, $password) ;
+} catch (PDOException $e) {
+    echo 'Echec connexion : ' . $e->getMessage () ;
+}
+
+$query = 'SELECT * FROM users AS U WHERE U.active = :active' ;
+
+$stmt = $dbh->prepare ($query) ;
+$results = $stmt->execute (array ("active" => 1)) ;
+
+foreach ($results->fetchAll () as $r) {
+	print_r ($r) ;
+}
+unset ($dbh) ;
+		\end{lstlisting}
+	\end{block}
+	Habituellement, on crée un objet dérivant de \texttt{PDO} pour stocker la configuration d’accès à la base,  gérer la connexion et la déconnexion automatique, et éventuellement les transactions\ldots \\
+	\url{http://fr2.php.net/manual/fr/book.pdo.php}
+\end{frame}
