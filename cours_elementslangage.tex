@@ -523,7 +523,7 @@ function & incrementer (&$a, $b = 1) {
 		\begin{lstlisting}
 <?php
 $ajouter = function ($a, $b) { return $a + $b ; }
-$s = $ajouter (1 + 2) ;
+$s = $ajouter (1, 2) ;
 
 $a = array (/* ... */) ;
 $b = array_walk (function ($e) { return $e + 1 ; }, $a) ;
