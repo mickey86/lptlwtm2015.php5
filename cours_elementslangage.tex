@@ -692,6 +692,53 @@ class Classe extends MaClasse implements iIFace1, iIFace2 { /* ... */ }
 	\end{block}
 \end{frame}
 
+
+\begin{frame}[containsverbatim]{Les classes : trait (1/2)}
+	\begin{itemize}
+		\item est un objet regroupant de \textit{manière intéressante} des fonctionnalités
+		\item ne s'utilise qu'en inclusion dans des classes ou dans d'autres traits
+		\item les méthodes définies dans les \textbf{traits} importés redéfinissent les méthodes héritées, et sont elles-mêmes redéfinies par les méthodes déclarées dans la classe
+	\end{itemize}
+	\begin{block}{code : traits}
+		\begin{lstlisting}
+<?php
+class Base {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+?>
+		\end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Les classes : trait (2/2)}
+	\begin{itemize}
+		\item on peut importer plusieurs \textbf{traits} dans une même classe avec \lstinline!use sayHello, sayWorld;!
+		\item les conflits de nommages \textbf{doivent} être résolus explicitement~; en choisissant une alternative~: \lstinline!use SayHelloEN, sayHelloFR {sayHelloFR::hello insteadof sayHelloEN ;}!~; en \textit{aliassant} une alternative~: \lstinline!use SayHelloEN, sayHelloFR {sayHelloFR::hello as helloFR ;}!
+		\item la visibilité peut également être redéfinie lors de l'utilisation~: \lstinline!use HelloWorld { sayHello as protected; }! ou lors de l'\textit{aliassage}~: \lstinline!use HelloWorld { sayHello as private myPrivateHello; }!
+		\item des méthodes statiques et abstraites peuvent être définies dans un \textit{trait}
+		\item des variables statiques peuvent être déclarées dans les méthodes définies dans un \textit{trait}
+		\item des propriétés peuvent être définies dans un \textit{trait} ; mais cette fois, les collisions de nommage ne peuvent être résolues.
+		\item attention, les propriétés statiques définies dans un \textit{trait} n'acquièrent leur caractère partagé qu'une fois importé dans la classe~: si \lstinline!trait staticVar { public static $var ;}! est importé dans les classes \lstinline!classeA! et \lstinline!classeB!, alors \lstinline!classeA::$var <> classeB::$var! est vraie
+	\end{itemize}
+	\url{https://secure.php.net/manual/fr/language.oop5.traits.php}
+\end{frame}
+
 \subsection{Fichiers}
 
 \begin{frame}[containsverbatim]{Scripts}
@@ -783,6 +830,7 @@ class Classe extends MaClasse implements iIFace1, iIFace2 { /* ... */ }
 ?>
 		\end{lstlisting}
 	\end{block}
+	\url{https://secure.php.net/manual/fr/language.namespaces.php}
 \end{frame}
 
 
