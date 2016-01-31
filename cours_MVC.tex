@@ -1,0 +1,245 @@
+% Architecture d’application (MVC, BO/DAO/PO)
+
+\section{Architecture MVC (DAO, PO, BO)}
+
+\begin{frame}[containsverbatim]{Généralités}
+	\begin{itemize}
+		\item organisation : en couches, en modules, en parties, etc\ldots
+		\item force la modularisation, l'architecture
+		\item indépendance technologique, technique, des développements, de la maintenance
+		\item pour les acteurs d'un projet MVC : naviguer rapidement, repérer les bogues, appliquer des schémas standards, importer des briques d'autres projets, sûreté de développement, etc\ldots
+		\item pour les gros projets : chacun son métier, plusieurs sous-projets, etc\ldots
+		\item pour les projets plus modestes : assemblage rapide, environnements de dév adaptés, documentation, bibliothèques (MVC) disponibles et adaptées
+		\item MVC : Model, View, Controler ; Modèle, Vue, Contrôleur
+		\item BO/PO/DAO(/TO) : Business Objects, Presentation Objects, Data Abstraction Objects (, Tools Objects)
+		\item vue $\leftrightarrow$ contrôleur $\leftrightarrow$ modèle
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Modèle, DAO (Data Abstraction Objects) (1/3)}
+	Comprend :	
+	\begin{itemize}
+		\item le modèle de données : description des entités, des propriétés, des contraintes, des multiplicités, etc\ldots
+		\item l'accès aux données : les requêtes, CRUD + spécialisés
+		\item CRUD : Create, Read, Update, Delete
+	\end{itemize}
+	Les entités, typiquement :	
+	\begin{itemize}
+		\item une classe $\leftrightarrow$ une entité ; une instance de classe $\leftrightarrow$ une instance de l'entité
+		\item la classe décrit les propriétés, certaines contraintes, les multiplicités
+		\item l'instance stocke une donnée de l'entité : un ensemble des valeurs des propriétés, éventuellement référence vers d'autres entités
+	\end{itemize}
+	Les accès (persistance), typiquement :	
+	\begin{itemize}
+		\item une connexion à la base de données + des requêtes
+		\item une classe de connexion générique à la base de données (classe PDO ou dérivée)
+		\item une classe d'accès par entité ; les méthodes sont les requêtes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Modèle, DAO (Data Abstraction Objects) (2/3)}
+	\begin{block}{exemple : DAO/Utilisateur.php.class *}
+		\begin{lstlisting}
+<?php class Utilisateur {
+	private $id = null ;
+	private $login = null ;
+	private $tags = null ;
+	public function __construct ($id = null, $login, array $tags = array()) {
+		$this->id = $id ;
+		$this->login = $login ;
+		$this->tags = $tags ;
+	}
+	public function get_id () { 
+		return $this->id ; 
+	}
+	public function set_id ($id) { 
+		$this->id = $id ; 
+	}
+	public function get_tags () { 
+		return $this->tags ; 
+	}
+	public function set_tags (array $tags) { 
+		$this->tags = $tags ; 
+	}
+	...
+}
+		\end{lstlisting}
+	\end{block}
+	* Ici, pour des questions évidentes de place, il n'y a pas de documentation ; en vrai, tout doit être documenté !
+\end{frame}
+
+\begin{frame}[containsverbatim]{Modèle, DAO (Data Abstraction Objects) (3/3)}
+	\begin{block}{exemple : DAO/Utilisateur\_DAO\_Impl.php.class *}
+		\begin{lstlisting}
+<?php require_once ("DAO/DAO.php.class") ;
+require_once ("DAO/Utilisateur_DAO.php.class") ;
+require_once ("DAO/Tag_DAO.php.class") ;
+require_once ("DAO/Utilisateur.php.class") ;
+class Utilisateur_DAO_Impl extends DAO implements Utilisateur_DAO {
+	private $tag_DAO ;
+	public function __construct (PDO $pdo, DAO $tag_DAO = null) {
+		parent::__construct ($pdo) ;
+		$this->tag_DAO = $tag_DAO;
+	}
+	public function findById($id) {
+		try {
+			$statement = $this->get_pdo()->prepare("SELECT * FROM Users WHERE id = :id") ;
+			$result = $statement->execute(array("id" => $id)) ;
+		} catch (PDOException $pdoe) {
+			log(__CLASS__ . " : " . print_r($pdoe, true)) ;
+			throw $pdoe ;
+		}
+		if ($row = $result->fetch()) {
+			$utilisateur = new Utilisateur($row["id"], $row["login"]) ;
+			if ($this->tag_DAO) {
+				$utilisateur->set_tags(
+					$this->tag_DAO->findAllByUtilisateur($utilisateur)) ;
+			}
+			return $utilisateur ;
+		} else {
+			return null ;
+		}
+	}
+}
+		\end{lstlisting}
+	\end{block}
+	* Ici, pour des questions évidentes de place, il n'y a pas de documentation ; en vrai, tout doit être documenté !
+\end{frame}
+
+\begin{frame}[containsverbatim]{Vue, PO (Presentation Objects) (1/2)}
+	Contient :
+	\begin{itemize}
+		\item ce qui est exposé aux utilisateurs (humain ou non) de l'application
+		\item présentation des données (textes, images, vidéos, audios, tableaux, fichiers, etc\ldots) via HTML ou fichiers, par exemple
+		\item formulaires d'entrée de données (textes, fichiers, cases à cocher, listes de sélections, etc\ldots) via HTML ou fichiers, HTTP GET, HTTP POST, HTTP PUT, par exemple
+		\item interface d'accès aux fonctionnalités (déclenchement de procédures, d'actions) via HTML, Javascript, HTTP GET, HTTP DELETE, par exemple
+		\item les classes de contruction des formulaires et d'envoi de données : met en forme les données (qu'elle récupère auprès de la couche métier, ou qui sont fournies lors de l'appel)
+		\item les classes de \og déconstruction \fg{} de formulaires et des données venant du client : extrait les données pour les fournir en bonne et due forme à la couche métier
+	\end{itemize}
+	Les données et les actions :
+	\begin{itemize}
+		\item seules les données fournies par la couche métier ne peuvent être présentées
+		\item la couche de présentation HTML ne doit pas être considérée comme fiable ; surtout en ce qui concerne les données entrées par l'utilisateur (même en HTTPS !) 
+	\end{itemize}
+	La présentation peut analyser l'environnement client (via javascript, par exemple) pour adapter la présentation des données (conjointement ou non avec la couche métier) : internationalisation (langue, régions, codage caractères), adaptation au terminal (PC, mobile, imprimante, autre), accessibilité, etc\ldots
+\end{frame}
+
+\begin{frame}[containsverbatim]{Vue, PO (Presentation Objects) (2/2)}
+	\begin{block}{exemple : PO/Utilisateurs\_Liste\_Page.php.class *}
+		\begin{lstlisting}
+<?php require_once ("PO/HTML_renderer.php.class") ;
+include_once ("PO/Default_Templates/Template.php.class") ;
+class Utilisateurs_Liste_Page extends Presentation_Table {
+	private $utilisateurs_data = null ;
+	private $template = null ;
+	public function __construct (Template $template, Renderer $renderer) {
+		parent::__construct($renderer) ;
+		$this->template = $template ;
+	}
+	public function get_data ($index) { 
+		return $this->data[$index] ; 
+	}
+	public function set_data ($index, array $data) { 
+		$this->data[$index] = $data ; 
+	}
+	public function display () {
+		$data_to_render = array() ;
+		foreach ($this->data as $index => $u_data) {
+			$data_to_render["table_rows"][] = array (
+				"numero" => $index + 1,
+				"login" => strtolower($u_data["login"]),
+				"tags" => implode (", ", $u_data["tags"]),
+			) ;
+		}
+		$data_to_render["table_title"] = "Liste des utilisateurs" ;
+		$data_to_render["table_size"] = $config["default_table_size"] ;
+		echo $this->get_renderer()->render($this->template, $data_to_render) ;
+	}
+	...
+}
+		\end{lstlisting}
+	\end{block}
+	* Ici, pour des questions évidentes de place, il n'y a pas de documentation ; en vrai, tout doit être documenté !
+\end{frame}
+
+\begin{frame}[containsverbatim]{Contrôleur, BO (Business Objects) (1/3)}
+	Contient :
+	\begin{itemize}
+		\item l'intelligence de l'application
+		\item traitement des données
+		\item gestion des autorisations, des accès, sécurité, etc\ldots
+		\item gestion des workflows (enchaînement d'étapes) : inscriptions, commandes, etc\ldots
+		\item gestion des sessions
+	\end{itemize}
+	En général :
+	\begin{itemize}
+		\item doit être le plus indépendant possible des technologies des couches de présentation et de stockage de données : pas de HTML, pas de CSS, pas de javascript, pas de SQL,
+		\item ne doit exposer aux autres couches que les fonctionnalités qui leur sont dédiées
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Contrôleur, BO (Business Objects) (2/3)}
+	\begin{block}{exemple : index.php *}
+		\begin{lstlisting}
+<?php define ("CONFIG_FILENAME", "configuration.ini") ;
+if (file_exists(CONFIG_FILENAME)) {
+	$CONFIG = parse_ini("configuration.ini") ;
+	require_once ("BO/main.php.inc") ;	
+} else 	die ("Fichier de configuration manquant.") ;
+		\end{lstlisting}
+	\end{block}
+	\begin{block}{exemple : BO/main.php.inc *}
+		\begin{lstlisting}
+<?php require_once ("PO/ClientHTTP.php.class") ;
+session_start () ;
+if (isset ($_SERVER)) {
+	$client = new ClientHTTP () ; 
+	if ($_SERVER["REQUEST_METHOD"] == "GET" && isset ($_GET["q"])) {
+		switch ($_GET["q"]) {
+		case "listusers" :
+			require_once ("BO/Lister_Utilisateurs_Cmd.php.class") ;
+			require_once ("PO/Utilisateurs_Liste_Page.php.class") ;
+			$commande = new Lister_Utilisateur_Cmd () ;
+			$commande->execute () ;
+			$page = new Utilisateur_Liste_Page () ;
+			$page->set_data ($commande->get_outdata ()) ;
+			$client->send ($page->display ()) ;
+		...
+		}
+	} else {
+		$client->send ("Erreur de commande.", 400) ;
+	}
+}
+session_write_close () ;
+		\end{lstlisting}
+	\end{block}
+	* Ici, pour des questions évidentes de place, il n'y a pas de documentation ; en vrai, tout doit être documenté !
+\end{frame}
+
+\begin{frame}[containsverbatim]{Contrôleur, BO (Business Objects) (3/3)}
+	\begin{block}{exemple : BO/Lister\_Utilisateurs\_Cmd.php.class *}
+		\begin{lstlisting}
+<?php require_once ("BO/Command.php.class") ;
+require_once ("DAO/Utilisateur.php.class") ;
+require_once ("DAO/Utilisateur_DAO_Impl.php.class") ;
+class Lister_Utilisateurs_Cmd implements Command {
+	private $outdata = array () ;
+	private $Utilisateur_DAO = null;
+	...
+	public function execute () {
+		$utilisateurs = $this->Utilisateur_DAO->findAll() ;
+		$i = 0 ;
+		foreach ($utilisateurs as $u) {
+			$outdata[] = array (
+				"numero" => $i ++, 
+				"login" => $u->get_login (), 
+				"tags" => $u->get_tags (),
+			) ; 
+		}
+	}
+}
+		\end{lstlisting}
+	\end{block}
+	* Ici, pour des questions évidentes de place, il n'y a pas de documentation ; en vrai, tout doit être documenté !
+\end{frame}
+
